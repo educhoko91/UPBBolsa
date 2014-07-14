@@ -6,7 +6,7 @@
 body {
 	font: 400 0.8em 'trebuchet ms',arial,sans-serif;
 	color: #888;
-	background: #FFF url('/images/theme/mainbg.jpg') repeat-y top center;
+	background: #FFF url('../../images/theme/mainbg.jpg') repeat-y top center;
 	min-height: 100%;
 	}
 	
@@ -27,7 +27,7 @@ a:hover {
 #head {
 	height: 231px;
 	width: 100%;
-	background: #FFF url('/images/theme/bodybg.jpg') repeat-x top left;
+	background: #FFF url('../../images/theme/bodybg.jpg') repeat-x top left;
 	padding: 80px 0 0px 0;
 	background-color: #444;
 	}
@@ -81,7 +81,7 @@ a:hover {
 	} 
 	
 #nav li a:hover {
-    background: #00CCCC url('/images/theme/navhover.jpg') repeat-x top center;
+    background: #00CCCC url('../../images/theme/navhover.jpg') repeat-x top center;
     color: #FFFFFF;
 	}
 
@@ -89,12 +89,12 @@ a:hover {
 	font: 400 1.8em 'century gothic','arial narrow',arial,sans-serif;
 	color: #033;
 	margin: 10px 0;
-	background: url('/images/theme/h1bullet.gif') no-repeat left;
+	background: url('../../images/theme/h1bullet.gif') no-repeat left;
 	padding-left: 25px;
 	}
 
 #right p {
-	background: url('/images/theme/rightlist_line.gif') repeat-x top left;
+	background: url('../../images/theme/rightlist_line.gif') repeat-x top left;
 	line-height: 1.5em;
 	padding: 10px 0;
 	}
@@ -106,7 +106,7 @@ a:hover {
 #right li {
 	margin: 0px;
 	list-style:none;
-	background: url('/images/theme/rightlist_line.gif') repeat-x top left;
+	background: url('../../images/theme/rightlist_line.gif') repeat-x top left;
 	}
 
 #right li a {
@@ -115,11 +115,11 @@ a:hover {
 	margin:  0;
 	color:#FFF;
 	text-decoration:none;
-	background: url('/images/theme/rightlist_bullet.gif') no-repeat left;
+	background: url('../../images/theme/rightlist_bullet.gif') no-repeat left;
 	}
 
 #right li a:hover {
-	background: #066 url('/images/theme/rightlist_bullet.gif') no-repeat right;
+	background: #066 url('../../images/theme/rightlist_bullet.gif') no-repeat right;
 	color:#FFF;
 	}
 
@@ -163,7 +163,7 @@ a:hover {
 	
 p.info {
 	border-top: 1px solid #CCC; border-bottom: 1px solid #CCC;
-	background: #F3F3F3 url('/images/theme/bullet.gif') no-repeat left center;
+	background: #F3F3F3 url('../../images/theme/bullet.gif') no-repeat left center;
 	font-size: 0.9em;
 	padding: 10px 5px 10px 25px;
 	width: 605px;
@@ -201,7 +201,7 @@ ol li {
 	
 #content ul li {
 	padding: 4px 25px;
-	background: url('/images/theme/bullet.gif') no-repeat left center;
+	background: url('../../images/theme/bullet.gif') no-repeat left center;
 	}
 	
 form label{
@@ -256,7 +256,7 @@ form input.button{
 	
 #footer {
 	width: 100%;
-	background: #003939 url('/images/theme/footbg.jpg') repeat-x top left;
+	background: #003939 url('../../images/theme/footbg.jpg') repeat-x top left;
 	}
 
 #footer .wrap {
@@ -295,7 +295,7 @@ form input.button{
 #footer h4, #footer h4 a {
 	color: #009999;
 	padding: 10px 0 10px 0;
-	background: url('/images/theme/footlist_line.gif') repeat-x bottom left;
+	background: url('../../images/theme/footlist_line.gif') repeat-x bottom left;
 	text-decoration: none;
 	}
  
@@ -319,7 +319,7 @@ form input.button{
 	margin: 0 12px;
 	padding: 0 10px 30px 10px;
 	list-style-type: none;
-	background: #002C2C url('/images/theme/linkscorner.jpg') no-repeat top right;
+	background: #002C2C url('../../images/theme/linkscorner.jpg') no-repeat top right;
 	}
 	
 .linksright li {
