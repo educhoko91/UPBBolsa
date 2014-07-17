@@ -27,6 +27,7 @@
                 <li><a href="#">blog</a></li>
                 <li><a href="#">contact</a></li>
                 <li><a href="http://localhost:8080/UPBBolsa/login">Log-in</a></li>
+                <li><a href="http://localhost:8080/UPBBolsa/logout">Log-out</a></li>
             </ul>
         </div>
     </div>
@@ -96,6 +97,7 @@
             <li><a href="#">blog</a></li>
             <li><a href="#">contact</a></li>
             <li><a href="http://localhost:8080/UPBBolsa/login">Log-in</a></li>
+            <li><a href="http://localhost:8080/UPBBolsa/logout">Log-out</a></li>
         </ul>
     </div>
     <div class="linksright">
