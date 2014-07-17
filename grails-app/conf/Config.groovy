@@ -1,3 +1,5 @@
+import Registration.Role
+
 // locations to search for config files that get merged into the main config;
 // config files can be ConfigSlurper scripts, Java properties files, or classes
 // in the classpath in ConfigSlurper format
@@ -90,32 +92,10 @@ log4j = {
            'net.sf.ehcache.hibernate'
 }
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.myApp.com.myApp.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.myApp.com.myApp.Usercom.myApp.Role'
-grails.plugins.springsecurity.authority.className = 'com.myApp.com.myApp.Role'
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.myApp.com.myApp.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.myApp.com.myApp.Usercom.myApp.Role'
-grails.plugins.springsecurity.authority.className = 'com.myApp.com.myApp.Role'
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'Registration.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'Registration.UserRole'
+grails.plugins.springsecurity.authority.className = 'Registration.Role'
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'commyApp.commyAppUser'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'commyApp.commyAppUsercommyAppRole'
-grails.plugins.springsecurity.authority.className = 'commyApp.commyAppRole'
 
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.myApp.com.myApp.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.myApp.com.myApp.Usercom.myApp.Role'
-grails.plugins.springsecurity.authority.className = 'com.myApp.com.myApp.Role'
-
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.UPBBolsa.com.UPBBolsa.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.UPBBolsa.com.UPBBolsa.Usercom.UPBBolsa.Role'
-grails.plugins.springsecurity.authority.className = 'com.UPBBolsa.com.UPBBolsa.Role'
-
-// Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'UPBBolsa.UPBBolsa.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'UPBBolsa.UPBBolsa.UserUPBBolsa.Role'
-grails.plugins.springsecurity.authority.className = 'UPBBolsa.UPBBolsa.Role'

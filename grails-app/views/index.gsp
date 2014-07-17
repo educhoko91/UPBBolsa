@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta name="layout" content="upbolsa"/>
-		<title>Welcome to UPBBolsa</title>
+		<title>Welcome to Registration</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;

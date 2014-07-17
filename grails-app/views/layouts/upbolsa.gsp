@@ -16,7 +16,7 @@
 <div id="head">
     <div class="wrap">
         <h1>out of the box</h1>
-        <h2>inspired by <a href="http://zenhabits.net">zenhabits</a></h2>
+        <h2>inspired by <a href="http://zenhabits.net">LOS SISTEMATICOS</a></h2>
         <div id="nav">
             <ul>
                 <li><a href="#">home</a></li>
@@ -26,6 +26,7 @@
                 <li><a href="#">about</a></li>
                 <li><a href="#">blog</a></li>
                 <li><a href="#">contact</a></li>
+                <li><a href="http://localhost:8080/UPBBolsa/login">Log-in</a></li>
             </ul>
         </div>
     </div>
@@ -94,6 +95,7 @@
             <li><a href="#">about</a></li>
             <li><a href="#">blog</a></li>
             <li><a href="#">contact</a></li>
+            <li><a href="http://localhost:8080/UPBBolsa/login">Log-in</a></li>
         </ul>
     </div>
     <div class="linksright">
