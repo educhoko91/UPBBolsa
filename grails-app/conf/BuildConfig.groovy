@@ -60,6 +60,8 @@ grails.project.dependency.resolution = {
 
         compile ':cache:1.0.1'
         compile ':spring-security-core:1.2.7.3'
+        compile ':excel-import:1.0.0'
+        compile ":joda-time:1.4"
 
     }
 }
