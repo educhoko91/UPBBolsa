@@ -16,3 +16,12 @@ Simulador de la Bolsa UPB
 - Browser: Chrome
 
 - SCRUM Software: EasyBacklog
+
+
+##### Script para crear base de datos y usuario de MySQL
+
+
+```SQL
+CREATE DATABASE UPBBolsaDB;
+GRANT ALL ON UPBBolsaDB.* TO 'UPBBolsaDBA'@'localhost' IDENTIFIED BY '123456798';
+```
