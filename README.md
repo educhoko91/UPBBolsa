@@ -24,5 +24,5 @@ Simulador de la Bolsa UPB
 ```SQL
 GRANT ALL ON UPBBolsaDB.* TO 'UPBBolsaDBA'@'localhost' IDENTIFIED BY '123456798';
 
-CREATE DATABASE UPBBolsa;
+CREATE DATABASE UPBBolsaDB;
 ```
