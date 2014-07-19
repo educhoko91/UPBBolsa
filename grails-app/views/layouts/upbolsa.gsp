@@ -53,63 +53,11 @@
     </div>
 </div>
 <div id="footer"><div class="wrap">
-    <div id="footnav">
-        <ul>
-            <li><a href="#">home</a></li>
-            <li><a href="#">about</a></li>
-            <li><a href="#">blog</a></li>
-            <li><a href="#">contact</a></li>
-            <li><a href="#">about</a></li>
-            <li><a href="#">blog</a></li>
-            <li><a href="#">contact</a></li>
-            <li><a href="http://localhost:8080/UPBBolsa/login">Log-in</a></li>
-            <li><a href="http://localhost:8080/UPBBolsa/logout">Log-out</a></li>
-        </ul>
-    </div>
-    <div class="linksright">
-        <h4><a href="#">Recent Updates</a></h4>
-        <ul>
-            <li><a href="http://demusdesign.com">A New Template</a></li>
-            <li><a href="http://demusdesign.com/">From DemusDesign</a></li>
-            <li><a href="http://validator.w3.org/check?uri=referer">XHTML 1.0 Strict</a></li>
-            <li><a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a></li>
-            <li><a href="http://opendesigns.org">OpenDesigns</a></li>
-        </ul>
-    </div>
-    <div class="linksright">
-        <h4>Recent Comments</h4>
-        <ul>
-            <li><a href="http://demusdesign.com">A New Template</a></li>
-            <li><a href="http://demusdesign.com/">From DemusDesign</a></li>
-            <li><a href="http://validator.w3.org/check?uri=referer">XHTML 1.0 Strict</a></li>
-            <li><a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a></li>
-            <li><a href="http://opendesigns.org">OpenDesigns</a></li>
-        </ul>
-    </div>
-    <div class="linksright">
-        <h4>Recent Posts</h4>
-        <ul>
-            <li><a href="http://demusdesign.com">A New Template</a></li>
-            <li><a href="http://demusdesign.com/">From DemusDesign</a></li>
-            <li><a href="http://validator.w3.org/check?uri=referer">XHTML 1.0 Strict</a></li>
-            <li><a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a></li>
-            <li><a href="http://opendesigns.org">OpenDesigns</a></li>
-        </ul>
-    </div>
-    <div class="linksright">
-        <h4>Recent Posts</h4>
-        <ul class="null">
-            <li><a href="http://demusdesign.com">A New Template</a></li>
-            <li><a href="http://demusdesign.com/">From DemusDesign</a></li>
-            <li><a href="http://validator.w3.org/check?uri=referer">XHTML 1.0 Strict</a></li>
-            <li><a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a></li>
-            <li><a href="http://opendesigns.org">OpenDesigns</a></li>
-        </ul>
-    </div>
+
     <div class="clearer">&nbsp;</div><br /><br />
     <p class="foot">
-        Template by <a class="credit" href="http://www.demusdesign.com">DemusDesign</a><br />
-    &copy; Your Site 2007
+        Template by MOROCHO
+
     </p>
 </div></div> </body>
 <r:layoutResources />
