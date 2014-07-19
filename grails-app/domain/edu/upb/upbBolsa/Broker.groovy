@@ -1,13 +1,11 @@
-package upbbolsa
+package edu.upb.upbBolsa
 
-class Usuario {
-    int id
-    Broker broker
+class Broker {
+     int id
+    int userslimit
     String nombre
     String password
-    double capital
     String correo
-
     static constraints = {
     }
 }

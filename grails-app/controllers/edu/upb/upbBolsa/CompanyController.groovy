@@ -22,8 +22,7 @@ class CompanyController {
                 startRow: 1,
                 columnMap:  [
                         //Col, Map-Key
-                        'A':'period',
-                        'B':'price',
+                        'A':'price',
                 ]
         ]
 

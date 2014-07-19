@@ -1,8 +1,7 @@
-package upbbolsa
+package edu.upb.upbBolsa
 
-class Broker {
+class Cajero {
      int id
-    int userslimit
     String nombre
     String password
     String correo

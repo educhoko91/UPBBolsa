@@ -1,10 +1,10 @@
-package upbbolsa
+package edu.upb.upbBolsa
 
 class Transacciones {
      int id
     Usuario usuario
     Broker broker
-    Empresa empresa
+    Company empresa
     int montounitario
     int montototal
     int periodo

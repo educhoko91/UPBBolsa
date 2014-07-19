@@ -1,4 +1,4 @@
-package upbbolsa
+package edu.upb.upbBolsa
 
 class Noticiaserie {
     int id
