@@ -10,6 +10,8 @@
 <head>
     <title>UPBBolsa</title>
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css/theme', file: 'style.css')}" media="screen" title="style (screen)" />
+    <g:layoutHead/>
+    <r:layoutResources />
 </head>
 
 <body>
@@ -47,43 +49,7 @@
         </ul>
     </div>
     <div id="content">
-        <h1>a new template</h1>
-        <h2>from DemusDesign</h2>
-        <p><img class="right" src="${request.contextPath}/images/theme/blur.jpg" alt="" />Out of the box is the 11th template from <a href="http://demusdesign.com">DemusDesign</a>. I make no bones about the fact that I was inspired after visiting the <a href="http://zenhabits.net">Zen Habits</a> blog. All of us designers are constantly inspired. I think I've given this design its own look and feel, and Zen Habits was just a launching point. The background white/blue image will eventually give way to a white border on the right if you're on a 5-screen setup with a resolution over 4000px wide.</p>
-        <img src="${request.contextPath}/images/theme/br.gif" alt="" />
-        <p class="info">posted by <a href="http://demusdesign.com">demus</a>    |    on June 14, 2008 16:33:46 EDT    |    <a href="#">6</a> comments</p>
-        <img src="${request.contextPath}/images/theme/br.gif" alt="" />
-        <h1>and now time...</h1>
-        <h2>For Some Style Demos</h2>
-        <h3>Right-floated image</h3>
-        <p><img class="right" src="${request.contextPath}/images/theme/small.jpg" alt="" />Vestibulum lobortis pharetra <a href="#">libero</a>. Suspendisse odio diam, eleifend sed, rutrum quis, commodo nec, ante. Ut non lectus. Nulla metus. Nullam convallis volutpat tortor. Fusce risus. Aliquam odio dui, bibendum id, sagittis non, posuere non, purus. Etiam ligula ante, pulvinar eget, nonummy vitae, pretium facilisis, turpis. Pellentesque commodo purus id sem. Praesent vitae metus. Duis ut diam. Praesent ut nisi aliquet odio iaculis porttitor. Etiam ligula ante, pulvinar eget, nonummy vitae, pretium facilisis, turpis. Pellentesque commodo purus id sem. Praesent vitae metus. Duis ut diam. Praesent ut nisi aliquet odio iaculis porttitor.</p>
-        <h3>Left-floated image</h3>
-        <p><img class="left" src="${request.contextPath}/images/theme/small.jpg" alt="" />Vestibulum lobortis pharetra <a href="#">libero</a>. Suspendisse odio diam, eleifend sed, rutrum quis, commodo nec, ante. Ut non lectus. Nulla metus. Nullam convallis volutpat tortor. Fusce risus. Aliquam odio dui, bibendum id, sagittis non, posuere non, purus. Etiam ligula ante, pulvinar eget, nonummy vitae, pretium facilisis, turpis. Pellentesque commodo purus id sem. Praesent vitae metus. Duis ut diam. Praesent ut nisi aliquet odio iaculis porttitor. Etiam ligula ante, pulvinar eget, nonummy vitae, pretium facilisis, turpis. Pellentesque commodo purus id sem. Praesent vitae metus. Duis ut diam. Praesent ut nisi aliquet odio iaculis porttitor.</p>
-        <h3>Blockquote</h3>
-        <div class="blockquote">Vestibulum lobortis pharetra <a href="#">libero</a>. Suspendisse odio diam, eleifend sed, rutrum quis, commodo nec, ante. Ut non lectus. Nulla metus. Nullam convallis volutpat tortor. Fusce risus.</div>
-        <ol>
-            <li><span>An Ordered List</span></li>
-            <li><span>interdum semper,</span></li>
-            <li><span>cursus at,</span></li>
-        </ol>
-        <ul>
-            <li>An Unordered List</li>
-            <li>interdum semper,</li>
-            <li>cursus at,</li>
-        </ul>
-        <h3>Time for a Form</h3>
-        <form action="#" method="post">
-            <p>
-                <label>Name:</label>
-                <input type="text" class="text" name="name" />
-                <label>Email:</label>
-                <input type="text" class="text" name="email" />
-                <label>Your Message:</label>
-                <textarea rows="8" cols="30" name="message"></textarea>
-                <input type="submit" class="button" value="Submit" />
-                <input type="reset" class="button" value="Clear" />
-            </p>
-        </form>
+        <g:layoutBody/>
     </div>
 </div>
 <div id="footer"><div class="wrap">
@@ -146,4 +112,5 @@
     &copy; Your Site 2007
     </p>
 </div></div> </body>
+<r:layoutResources />
 </html>
