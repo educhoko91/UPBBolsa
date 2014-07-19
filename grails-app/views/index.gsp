@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="main"/>
-		<title>Welcome to Grails</title>
+		<meta name="layout" content="upbolsa"/>
+		<title>Welcome to Registration</title>
 		<style type="text/css" media="screen">
 			#status {
 				background-color: #eee;
