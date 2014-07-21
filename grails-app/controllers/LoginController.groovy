@@ -12,6 +12,8 @@ import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
+import Registration.User
+
 class LoginController {
 
 	/**
@@ -42,17 +44,31 @@ class LoginController {
 	def auth = {
 
 		def config = SpringSecurityUtils.securityConfig
-
 		if (springSecurityService.isLoggedIn()) {
 			redirect uri: config.successHandler.defaultTargetUrl
 			return
 		}
-
 		String view = 'auth'
 		String postUrl = "${request.contextPath}${config.apf.filterProcessesUrl}"
 		render view: view, model: [postUrl: postUrl,
 		                           rememberMeParameter: config.rememberMe.parameter]
+
+        User user = new User()
+        [user:user]
 	}
+
+    def save(){
+
+        if (request.method == 'POST') {
+            def u = new User(params)
+            u.enabled = true
+            if (!u.save()) {
+                return [user:u]
+            } else {
+                redirect(controller:'login', action: 'auth')
+            }
+        }
+    }
 
 	/**
 	 * The redirect action for Ajax requests.
