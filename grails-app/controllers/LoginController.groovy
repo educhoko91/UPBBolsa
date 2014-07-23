@@ -1,4 +1,6 @@
+import Registration.UserRole
 import grails.converters.JSON
+import org.apache.xmlbeans.impl.xb.ltgfmt.FileDesc
 
 import javax.servlet.http.HttpServletResponse
 
@@ -13,6 +15,7 @@ import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 import Registration.User
+import Registration.Role
 
 class LoginController {
 
@@ -58,13 +61,18 @@ class LoginController {
 	}
 
     def save(){
+        def userRole = Role.findByAuthority('ROLE_USER')
 
         if (request.method == 'POST') {
             def u = new User(params)
             u.enabled = true
+
             if (!u.save()) {
+                flash.message = 'Ya se encuentra registrado'
+                redirect(controller:'login', action: 'auth')
                 return [user:u]
             } else {
+                UserRole.create(u,userRole)
                 redirect(controller:'login', action: 'auth')
             }
         }

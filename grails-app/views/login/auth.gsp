@@ -6,6 +6,10 @@
 </head>
 
 <body>
+<h2><g:if test='${flash.message}'>
+    <div class='login_message'>${flash.message}</div>
+</g:if></h2>
+
 <div class="wrap">
     <div id="content">
         <table width="650" valign="top">
@@ -15,9 +19,7 @@
                         <div class='inner'>
                             <div class='fheader'><g:message code="springSecurity.login.header"/></div>
 
-                            <g:if test='${flash.message}'>
-                                <div class='login_message'>${flash.message}</div>
-                            </g:if>
+
 
                             <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
                                 <p>
@@ -55,17 +57,20 @@
                 <td width="50"></td>
                 <td width="400" valign="top">
                     <div id="save">
+
+
+
                         <g:form class="cssform" url="[controller: 'login', action: 'save']">
                             <h4>Registrarse</h4>
 
                             <p>
-                                <label for="username">Nombre y Apellido</label>
+                                <label for="username">Email</label>
                                 <g:textField name="username" value="${user?.username}"/>
                             </p>
 
                             <p>
-                                <label for="email">Correo Electronico</label>
-                                <g:textField name="email" value="${user?.email}"/>
+                                <label for="fullname">Nombre y apellido</label>
+                                <g:textField name="fullname" value="${user?.fullname}"/>
                             </p>
 
                             <p>

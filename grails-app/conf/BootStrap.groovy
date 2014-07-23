@@ -9,9 +9,12 @@ class BootStrap {
 
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save(failOnError: true)
         def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save(failOnError: true)
+        def cajeroRole = Role.findByAuthority('ROLE_CAJA') ?: new Role(authority: 'ROLE_CAJA').save(failOnError: true)
+        def brokeRole = Role.findByAuthority('ROLE_BROK') ?: new Role(authority: 'ROLE_BROK').save(failOnError: true)
 
-        def adminUser = User.findByUsername('admin') ?: new User( username: 'admin', password: 'admin', email: 'admin@mail.com', enabled: true).save(failOnError: true)
-        def userUser = User.findByUsername('user') ?: new User( username: 'user', password: 'user', email: 'user@mail.com', enabled: true).save(failOnError: true)
+
+        def adminUser = User.findByUsername('admin@hotmail.com') ?: new User( username: 'admin@hotmail.com', password: 'admin', fullname: 'admin@mail.com', enabled: true).save(failOnError: true)
+        def userUser = User.findByUsername('user@hotmail.com') ?: new User( username: 'user@hotmail.com', password: 'user', fullname: 'user@mail.com', enabled: true).save(failOnError: true)
 
         if (!adminUser.authorities.contains(adminRole)) {
             UserRole.create(adminUser, adminRole)  }
