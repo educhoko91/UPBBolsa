@@ -83,7 +83,7 @@ class LoginController {
 			        postUrl: "${request.contextPath}${config.apf.filterProcessesUrl}"]
 	}
 
-	/**
+	/**MySql linkieado con Grails. Scripts de creacion de base de datos en el README.md
 	 * Callback after a failed login. Redirects to the auth page with a warning message.
 	 */
 	def authfail = {
