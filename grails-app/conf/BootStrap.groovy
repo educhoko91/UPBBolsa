@@ -31,6 +31,7 @@ class BootStrap {
             VariablesSistema.findByNombre('capInicio') ?:new VariablesSistema(nombre: 'capInicio',value: '1000').save(failOnError: true);
             VariablesSistema.findByNombre('numHabilit') ?:new VariablesSistema(nombre: 'numHabilit',value: '4').save(failOnError: true);
             VariablesSistema.findByNombre('costoTransfer') ?:new VariablesSistema(nombre: 'costoTransfer',value: '10').save(failOnError: true);
+            VariablesSistema.findByNombre('costoHabilitacion') ?:new VariablesSistema(nombre: 'costoHabilitacion',value: '5').save(failOnError: true);
 
         }
 

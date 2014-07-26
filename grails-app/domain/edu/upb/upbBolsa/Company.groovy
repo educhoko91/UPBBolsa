@@ -7,6 +7,7 @@ class Company {
     static hasOne = [serie:Serie];
 
     static constraints = {
-        name(blank: false,maxSize: 50, nullable:false)
+        name(blank: false,maxSize: 50, nullable:false, unique: true)
+        code(blank: false,maxSize: 50, nullable:false, unique: true)
     }
 }
