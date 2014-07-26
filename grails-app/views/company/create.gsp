@@ -30,8 +30,44 @@
     <g:form action="save" method="POST" enctype="multipart/form-data" class="form">
         <p>
             <g:render template="form"/>
-        </p>
+            <br />
             <g:submitButton name="create" class="button" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+            <br />
+        </p>
+        <p>
+            <table>
+                <thead>
+                <tr>
+
+                    <g:sortableColumn property="name" title="${message(code: 'company.label', default: 'Name')}"/>
+
+                    <g:sortableColumn property="serie" title="${message(code: 'serie.label', default: 'Serie')}"/>
+
+                    <td></td>
+
+                </tr>
+                </thead>
+                <tbody>
+                <g:each in="${companies}" status="i" var="company">
+                    <tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
+
+
+
+                        <td>${fieldValue(bean: company, field: "name")}</td>
+
+                        <td>${fieldValue(bean: company, field: "code")}</td>
+
+                        <td>
+
+                            <g:link action="delete" id="${company.id}"><button type="button">${message(code: 'delete.label', default: 'Delete')}</button></g:link>
+                        </td>
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+        </p>
+
 
     </g:form>
 </div>

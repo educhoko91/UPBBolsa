@@ -3,28 +3,53 @@ package edu.upb.upbBolsa
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.grails.plugins.excelimport.*
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 class CompanyController {
 
     def index() {
-
+        redirect(action: "create", params: params)
     }
 
     def create(){
-        [companyInstance:new Company(params)]
+        def companies = Company.getAll();
+        print companies;
+        [companyInstance:new Company(params),companies:companies ]
+    }
+
+    def delete(){
+        print params
+        try{
+            def company = Company.get(params.id);
+            company.delete(flush: true)
+        }catch (DataIntegrityViolationException e){
+            print "no se pudo borrar"
+        }
+
+
+        redirect(action: "create", params: params)
     }
 
     def save(){
-
+        print "entro";
         def comp  = new Company(params);
+        print params.file.getOriginalFilename();
+        print comp.name
+        print comp.code
+        def serie = new Serie()
+        serie.name = params.file.getOriginalFilename();
+        comp.serie = serie;
+        print comp.validate();
         if(comp.validate()) {
-            def serie = new Serie()
-            comp.serie = serie;
+            print "paso primer if"
 
-            if (comp.save(true)) {
+            serie.save(flush:true);
 
+
+            if (comp.save(flush:true)) {
+                print "paso el if"
 
                 Map SERIES_DATA = [
                         sheet    : 'Sheet1',
@@ -52,8 +77,15 @@ class CompanyController {
                 }
 
             }
-        }
 
+        }else{
+
+            comp.errors.each {
+                print it
+            }
+
+        }
+        redirect(action: "create", params: params)
 
     }
 }
