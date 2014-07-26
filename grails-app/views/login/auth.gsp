@@ -6,10 +6,10 @@
 </head>
 
 <body>
-<h2><g:if test='${flash.message}'>
+<t
+<g:if test='${flash.message}'>
     <div class='login_message'>${flash.message}</div>
-</g:if></h2>
-
+</g:if>
 <div class="wrap">
     <div id="content">
         <table width="650" valign="top">
