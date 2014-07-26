@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="layout" content="upbolsa"/>
-    <g:javascript library="jquery-ui" />
+
     <title></title>
 </head>
 
