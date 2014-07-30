@@ -15,12 +15,15 @@ class BootStrap {
 
         def adminUser = User.findByUsername('admin@hotmail.com') ?: new User( username: 'admin@hotmail.com', password: 'admin', fullname: 'admin@mail.com', enabled: true).save(failOnError: true)
         def userUser = User.findByUsername('user@hotmail.com') ?: new User( username: 'user@hotmail.com', password: 'user', fullname: 'user@mail.com', enabled: true).save(failOnError: true)
-
+        def cajeroUser = User.findByUsername('cajero@hotmail.com') ?: new User( username: 'cajero@hotmail.com', password: 'cajero', fullname: 'cajero@mail.com', enabled: true).save(failOnError: true)
         if (!adminUser.authorities.contains(adminRole)) {
             UserRole.create(adminUser, adminRole)  }
 
         if (!userUser.authorities.contains(userRole)) {
             UserRole.create(userUser, userRole)  }
+
+        if (!cajeroUser.authorities.contains(cajeroRole)) {
+            UserRole.create(cajeroUser, cajeroRole)  }
 
         if(!VariablesSistema.count()) {
 
