@@ -3,6 +3,7 @@
 <head>
     <title>LOG IN</title>
     <meta name="layout" content="upbolsa">
+
 </head>
 
 <body>
@@ -12,36 +13,28 @@
 </g:if>
 <div class="wrap">
     <div id="content">
-        <table width="650" valign="top">
+        <table width="650" valign="top" class="cssform">
             <tr>
                 <td width="200" valign="top">
                     <div id='login'>
                         <div class='inner'>
-                            <div class='fheader'><g:message code="springSecurity.login.header"/></div>
-
-
-
-                            <form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
+                            <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
+                                <h2>Login</h2>
                                 <p>
-                                    <label for='username'><g:message
-                                            code="springSecurity.login.username.label"/>:</label>
-                                    <input type='text' class='text_' name='j_username' id='username'/>
-                                </p>
+                                    <label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
+                                    <input type='text' class='text' name='j_username' id='username'/>
+                                    <label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
+                                    <input type='password' class='text' name='j_password' id='password'/>
+                                    </br>
 
-                                <p>
-                                    <label for='password'><g:message
-                                            code="springSecurity.login.password.label"/>:</label>
-                                    <input type='password' class='text_' name='j_password' id='password'/>
+                                    <comment id="remember_me_holder">
+                                        <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
+                                        </br>
+                                        <label for='remember_me'><g:message code="springSecurity.login.remember.me.label"/></label>
+                                    </comment>
+                                </br>
+                                <button><input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/></button>
                                 </p>
-
-                                <comment id="remember_me_holder">
-                                    <input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me'
-                                           <g:if test='${hasCookie}'>checked='checked'</g:if>/>
-                                    <label for='remember_me'><g:message
-                                            code="springSecurity.login.remember.me.label"/></label>
-                                </comment>
-                                <button><input type='submit' id="submit"
-                                               value='${message(code: "springSecurity.login.button")}'/></button>
                             </form>
                         </div>
                     </div>
@@ -57,33 +50,18 @@
                 <td width="50"></td>
                 <td width="400" valign="top">
                     <div id="save">
-
-
-
-                        <g:form class="cssform" url="[controller: 'login', action: 'save']">
-                            <h4>Registrarse</h4>
-
+                        <g:form class="cssform" url="[controller: 'login', action: 'save']" >
+                            <h2>Registrarse</h2>
                             <p>
-                                <label for="username">Email</label>
-                                <g:textField name="username" value="${user?.username}"/>
-                            </p>
-
-                            <p>
+                                <label for="username" class="text">Email</label>
+                                <g:textField name="username" value="${user?.username}" class="text"/>
                                 <label for="fullname">Nombre y apellido</label>
-                                <g:textField name="fullname" value="${user?.fullname}"/>
-                            </p>
-
-                            <p>
+                                <g:textField name="fullname" value="${user?.fullname}" class="text"/>
                                 <label for="password">Password</label>
-                                <g:passwordField name="password" value="${user?.password}"/>
-                            </p>
-
-                            <p>
-                                <label for="password_confirm">Verif. Password</label>
-                                <g:passwordField name="password_confirm" value=""/>
-                            </p>
-
-                            <p class="button">
+                                <g:passwordField name="password" value="${user?.password}" class="text"/>
+                                <label for="verify_password">Verif. Password</label>
+                                <g:passwordField name="verify_password" value="${user?.verify_password}" class="text"/>
+                                </br></br>
                                 <g:submitButton class="button" name="submitButton" value="Resgistarse"/>
                             </p>
                         </g:form>
