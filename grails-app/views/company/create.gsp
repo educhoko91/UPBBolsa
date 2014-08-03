@@ -66,8 +66,9 @@
                 </g:each>
                 </tbody>
             </table>
-        </p>
 
+        </p>
+        <g:link controller="simulation" action="start">Inicial Simulacion</g:link>
 
     </g:form>
 </div>

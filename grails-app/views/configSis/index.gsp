@@ -16,7 +16,7 @@
 <body>
 
 <r:script>
-    $("#fechaInicio").datepicker();
+    $("#fechaInicio").datepicker({ dateFormat: "dd/mm/yy" });
 
 
 </r:script>

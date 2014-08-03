@@ -32,6 +32,7 @@ class ConfigSisController {
         } else {
             redirect(action: "index")
         }
+
     }
 
     private def initParametros() {

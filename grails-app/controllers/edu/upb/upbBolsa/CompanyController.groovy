@@ -5,9 +5,11 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.grails.plugins.excelimport.*
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile
+import upbbolsa.SyncEngineService;
 
 class CompanyController {
+
 
     def index() {
         redirect(action: "create", params: params)
@@ -67,7 +69,9 @@ class CompanyController {
                 Workbook workbook = WorkbookFactory.create(file.inputStream)
 
                 List<Map> serieList = new ExcelImportService().columns(workbook, SERIES_DATA)
-                print serieList
+                if(VariablesSistema.findByNombre("cicloFin")==null) {
+                    new VariablesSistema(nombre: 'cicloFin',value: serieList.size()).save(failOnError: true)
+                }
                 for (s in serieList) {
                     def datos = new DatoSerie()
                     datos.serie = serie

@@ -1,5 +1,8 @@
 package edu.upb.upbBolsa
 
+import org.springframework.transaction.annotation.Transactional
+
+@Transactional
 class VariablesSistema {
 
     String nombre;

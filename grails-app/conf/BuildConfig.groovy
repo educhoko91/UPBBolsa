@@ -43,6 +43,7 @@ grails.project.dependency.resolution = {
 
         runtime 'mysql:mysql-connector-java:5.1.31'
         // runtime 'mysql:mysql-connector-java:5.1.22'
+
     }
 
     plugins {
@@ -64,6 +65,7 @@ grails.project.dependency.resolution = {
         compile ':spring-security-core:1.2.7.3'
         compile ':excel-import:1.0.0'
         compile ":joda-time:1.4"
+        compile ":executor:0.3"
 
     }
 }
