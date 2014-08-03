@@ -1,11 +1,11 @@
 package edu.upb.upbBolsa
 
+import Registration.User
+
 class Broker {
-     int id
     int userslimit
-    String nombre
-    String password
-    String correo
+    User user
     static constraints = {
+        user unique: true, nullable: false
     }
 }

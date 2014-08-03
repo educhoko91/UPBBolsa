@@ -5,7 +5,7 @@
   Time: 7:58 AM
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="edu.upb.upbBolsa.VariablesSistema" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Habilitaciones</title>
@@ -14,14 +14,14 @@
 
 <body>
 
-<g:form action="muestra">
+<g:form action="save">
     Nombre y Apellido: <g:field type="text" name="nombre"/><br>
     Correo: <g:field type="text" name="correo"/><br>
-    <g:submitButton name="submit" value="Enviar datos"/>
+    <g:submitButton name="submit" value="Habilitar" />
 
     <div>
-        Monto de habilitacion real: <span>number</span> <%--  ${parametros[4].nombre} --%>
-        Monto de habilitacion ficticio: <span>monto</span>      <%--  ${parametros[7].nombre} --%>
+        Monto de habilitacion real: <em><span>${VariablesSistema.findByNombre("costoHabilitacion").getValue()}</span> </em><br />
+        Monto de habilitacion ficticio: <em><span>${VariablesSistema.findByNombre("capInicio").getValue()}</span></em>
     </div>
 
 </g:form>

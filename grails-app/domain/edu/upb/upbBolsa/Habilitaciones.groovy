@@ -2,10 +2,12 @@ package edu.upb.upbBolsa
 
 import Registration.User
 
-class Cajero {
+class Habilitaciones {
 
-    User user
+    User cajero
+    User habilitado
+    int runId
+
     static constraints = {
-        user unique: true, nullable: false, blank: false
     }
 }
