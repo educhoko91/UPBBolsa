@@ -38,16 +38,29 @@
 
 <div class="wrap">
     <div id="right">
-        <h1>About out of the box</h1>
-        <p>Lorem ipsum dolor sit amet lorem. Ipsum dolor sit amet consectur.</p>
-        <h1>Recent Posts</h1>
+        <h1>Basic Menu</h1>
         <ul>
-            <li><a href="http://demusdesign.com">A New Template</a></li>
-            <li><a href="http://demusdesign.com/">From DemusDesign</a></li>
-            <li><a href="http://validator.w3.org/check?uri=referer">XHTML 1.0 Strict</a></li>
-            <li><a href="http://jigsaw.w3.org/css-validator/check/referer">Valid CSS</a></li>
-            <li><a href="http://opendesigns.org">OpenDesigns</a></li>
+            <li><a href="">Seriast</a></li>
+            <li><a href="">Noticias</a></li>
+            <li><a href="">Vender</a></li>
+            <li><a href="">Comprar</a></li>
+            <li><a href="">Ver</a></li>
+            <br/>
         </ul>
+    <sec:ifAllGranted roles="ROLE_ADMIN">
+        <h1>Menu Admin</h1>
+        <ul>
+            <li><a href="">Config Sistema</a></li>
+            <li><a href="">Crear Empresa</a></li>
+            <li><a href="">Crear Noticia</a></li>
+            <li><a href="">Config brocker</a></li>
+            <li><a href="">Config Sistema</a></li>
+            <li><a href="">Habilitar Usuario</a></li>
+            <li><a href="">Asignar Cajero</a></li>
+            <li><a href="">Caja</a></li>
+            <li><a href="">Reiniciar Sistema</a></li>
+        </ul>
+    </sec:ifAllGranted>
     </div>
     <div id="content">
         <g:layoutBody/>
@@ -60,6 +73,7 @@
         Template by MOROCHO
 
     </p>
-</div></div> </body>
+</div></div>
+</body>
 <r:layoutResources />
 </html>
