@@ -2,6 +2,7 @@ package edu.upb.upbBolsa
 
 import Registration.User
 import edu.upb.upbBolsa.Cajero
+import grails.converters.*
 
 class CajeroController {
 
@@ -16,6 +17,14 @@ class CajeroController {
 //        habilitaciones.cajero = new User();
 //        habilitaciones.save()
 //        int selfId = this.
-        print(habilitaciones.cajero)
+        print(habilitaciones.cajero.id)
+    }
+
+    def ajaxUsers = {
+        def usersFound = User.withCriteria {
+            ilike 'username', params.term + '%'
+        }
+        print(usersFound.username)
+        render (usersFound.username as JSON)
     }
 }

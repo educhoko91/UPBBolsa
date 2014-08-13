@@ -10,12 +10,23 @@
 <head>
     <title>Habilitaciones</title>
     <meta name="layout" content="upbolsa">
+
+    <g:javascript>
+        $(document).ready(function() {
+            $('.inputUserCajero').autocomplete({
+               // console.log('este es el JSON', source);
+                source: '<g:createLink controller='cajero' action='ajaxUsers'/>'
+            });
+        });
+    </g:javascript>
+
+
 </head>
 
 <body>
 
 <g:form action="save">
-    Nombre y Apellido: <g:field type="text" name="nombre"/><br>
+    Nombre y Apellido: <input type="text" name="nombre" class="inputUserCajero"/><br>
     Correo: <g:field type="text" name="correo"/><br>
     <g:submitButton name="submit" value="Habilitar" />
 
