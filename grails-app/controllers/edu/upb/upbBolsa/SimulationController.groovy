@@ -6,7 +6,7 @@ class SimulationController {
 
     def start() {
         syncEngineService.runEngine();
-        redirect(controller: Serie);
+        redirect(controller: "series");
     }
 
 }
