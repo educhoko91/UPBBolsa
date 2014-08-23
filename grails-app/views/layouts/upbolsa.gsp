@@ -65,6 +65,7 @@
     <div id="content">
         <g:layoutBody/>
     </div>
+    <br class="clear" />
 </div>
 <div id="footer"><div class="wrap">
 

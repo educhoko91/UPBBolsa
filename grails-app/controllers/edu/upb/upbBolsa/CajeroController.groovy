@@ -7,17 +7,26 @@ import grails.converters.*
 class CajeroController {
 
     def index() {
-//        redirect(action: "Habilitaciones", params: params)
         render view: 'Habiltaciones', params: params
     }
+
+
+
     def springSecurityService
     def save(){
-        Habilitaciones habilitaciones = new Habilitaciones();
-        habilitaciones.cajero = springSecurityService.currentUser;
-//        habilitaciones.cajero = new User();
-//        habilitaciones.save()
-//        int selfId = this.
-        print(habilitaciones.cajero.id)
+        User habilitado = User.findByUsername(params.correo);
+        print("numero habilitaciones " + VariablesSistema.findByNombre('numHabilit').getValue())
+        if (habilitado.numeroHabilitaciones > VariablesSistema.findByNombre('numHabilit').getValue() ){
+            flash.message = "Ya no tiene mas habilitaciones disponibles"
+            redirect(controller: 'cajero',action: 'index')
+        } else {
+            Habilitaciones habilitaciones = new Habilitaciones();
+            habilitaciones.cajero = springSecurityService.currentUser;
+            habilitaciones.habilitado = habilitado;
+            habilitaciones.save()
+            habilitado.numeroHabilitaciones += 1
+        }
+
     }
 
     def ajaxUsers = {

@@ -25,14 +25,16 @@
 
 <body>
 
-<g:form action="save">
+<g:form action="save" class="cssform">
     Nombre y Apellido: <input type="text" name="nombre" class="inputUserCajero"/><br>
     Correo: <g:field type="text" name="correo"/><br>
     <g:submitButton name="submit" value="Habilitar" />
-
+    <g:if test="${flash.message}">
+        <div class="message" role="status">${flash.message}</div>
+    </g:if>
     <div>
-        Monto de habilitacion real: <em><span>${VariablesSistema.findByNombre("costoHabilitacion").getValue()}</span> </em><br />
-        Monto de habilitacion ficticio: <em><span>${VariablesSistema.findByNombre("capInicio").getValue()}</span></em>
+        Costo de habilitacion real: <em><span>${VariablesSistema.findByNombre("costoHabilitacion").getValue()} Bs.</span> </em><br />
+        Monto de habilitacion ficticio: <em><span>${VariablesSistema.findByNombre("capInicio").getValue()} $</span></em>
     </div>
 
 </g:form>

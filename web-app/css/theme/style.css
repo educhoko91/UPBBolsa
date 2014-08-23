@@ -379,3 +379,7 @@ p.foot {
 	line-height: 1.6em;
 	background-color: #004040;
 	}
+
+.clear{
+    clear: both;
+}

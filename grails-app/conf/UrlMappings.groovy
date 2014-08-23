@@ -15,7 +15,7 @@ class UrlMappings {
             action = "index"
         }
 
-        "/"(view:"/index")
+//        "/"(view:"/index")
 		"500"(view:'/error')
 	}
 }

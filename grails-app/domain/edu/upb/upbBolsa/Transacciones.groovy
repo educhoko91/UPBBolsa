@@ -1,7 +1,7 @@
 package edu.upb.upbBolsa
 
 class Transacciones {
-     int id
+    int id
     Usuario usuario
     Broker broker
     Company empresa
@@ -11,5 +11,7 @@ class Transacciones {
     String tipo
     int cantidadacciones
     static constraints = {
+        usuario(nullable: false, blank: false)
+
     }
 }

@@ -13,6 +13,9 @@ class User {
 	boolean accountLocked
 	boolean passwordExpired
 
+    //campo añadido para las habilitaciones
+    int numeroHabilitaciones
+
     static searchable = [only: ['username', 'fullname']]
 
 	static constraints = {
