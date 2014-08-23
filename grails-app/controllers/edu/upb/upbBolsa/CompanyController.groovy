@@ -77,6 +77,7 @@ class CompanyController {
                     datos.serie = serie
                     datos.period = s.period
                     datos.price = s.price
+                    datos.time = calcTime(s.period);
                     datos.save()
                 }
 
@@ -90,6 +91,19 @@ class CompanyController {
 
         }
         redirect(action: "create", params: params)
+
+    }
+
+    private def calcTime(def period) {
+        def puntoInicial = Integer.parseInt(VariablesSistema.findByNombre("puntoInicial").value);
+        def interTiempo = Integer.parseInt(VariablesSistema.findByNombre("interTiempo").value);
+        def horaInicio = new Date().parse("HH:mm",VariablesSistema.findByNombre("horaInicio").value);
+        def currentPeriod = (int)period;
+        def calcPeriod = (currentPeriod -puntoInicial)*interTiempo;
+        def time = Calendar.getInstance();
+        time.setTime(horaInicio);
+        time.add(Calendar.SECOND,calcPeriod);
+        return time.format("HH:mm:ss").toString();
 
     }
 }

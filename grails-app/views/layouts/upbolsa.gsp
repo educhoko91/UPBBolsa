@@ -10,9 +10,12 @@
 <head>
     <title>UPBBolsa</title>
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css/theme', file: 'style.css')}" media="screen" title="style (screen)" />
+
     <g:javascript library="jquery-ui" />
+
     <g:layoutHead/>
     <r:layoutResources />
+    <script type="text/javascript" src="${resource(dir:'js/highstock', file: 'highstock.js')}"></script>
 </head>
 
 <body>
