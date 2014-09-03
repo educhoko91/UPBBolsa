@@ -5,7 +5,8 @@ import edu.upb.upbBolsa.VariablesSistema
 class SyncEngineService {
 
     def executorService;
-    static def ciclo;
+    static int ciclo = -2;
+    static Date sleepStart;
 
     def runEngine() {
         executorService.submit({
@@ -23,6 +24,7 @@ class SyncEngineService {
                 print initDate.toString() + "-" + new Date().toString();
 
                 print initDate.getTime() - (new Date()).getTime()
+                sleepStart = initDate;
                 sleep(initDate.getTime() - (new Date()).getTime());
                 ciclo = Integer.parseInt(puntoInicial.value) - 1;
                 while (true) {
@@ -31,9 +33,11 @@ class SyncEngineService {
                         break;
                     }
                     ciclo = ciclo+1;
+                    sleepStart = new Date();
                     sleep(1000 * Integer.parseInt(interTiempo.value));
                     print ciclo+"";
                 }
+                ciclo = -2;
                 print "Engine Finished"
             } catch (Exception e) {
                 print "Some thing when wrong!!!!"
@@ -48,5 +52,12 @@ class SyncEngineService {
 
     static def getCiclo() {
         return ciclo;
+    }
+
+    static def getInter() {
+        if(new Date().getTime() > sleepStart.getTime())
+            return (new Date().getTime())-(sleepStart.getTime());
+        else
+            return (sleepStart.getTime())-(new Date().getTime())+20;
     }
 }
