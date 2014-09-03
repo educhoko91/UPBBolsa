@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta name="layout" content="upbbolsa">
+        <meta name="layout" content="upbolsa">
 		<g:set var="entityName" value="${message(code: 'broker.label', default: 'Broker')}" />
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>

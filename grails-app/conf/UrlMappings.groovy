@@ -12,7 +12,7 @@ class UrlMappings {
 
         "/"{
             controller = "Login"
-            action = "auth"
+            action = "full"
         }
 
 //        "/"(view:"/index")

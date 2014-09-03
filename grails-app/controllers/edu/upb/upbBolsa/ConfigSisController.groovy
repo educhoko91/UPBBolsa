@@ -35,7 +35,8 @@ class ConfigSisController {
 
     }
 
-    private def initParametros() {
+    private def initParametros()
+    {
         this.parametros = VariablesSistema.findAll();
     }
 }

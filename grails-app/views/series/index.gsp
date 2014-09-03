@@ -23,27 +23,44 @@
 </table>
 </body>
 <g:javascript>
+
+$(document).ready(function() {
     Highcharts.setOptions({
 		global : {
 			useUTC : false
 		}
 	});
     <g:each in="${companies}" var="c">
-        $("#container${c.serie.id}").highcharts('StockChart',{
-    /*chart : {
+    var chart${c.serie.id} =  $('#container${c.serie.id}').highcharts('StockChart',{
+
+    chart : {
         events : {
             load : function() {
 
                 // set up the updating of the chart each second
                 var series = this.series[0];
+                var inter = ${inter};
+                //var inter = 10000;
+                var succes = false;
+                var ytime = -9999;
                 setInterval(function() {
-                    var x = (new Date()).getTime(), // current time
-                    y = Math.round(Math.random() * 100);
-                    series.addPoint([x, y], true, true);
-                }, 1000);
+                    $.getJSON("${createLink(controller: 'series', action: 'updateSeries')}",{'id':${c.serie.id}}, function(data) {
+                        succes = data.succes;
+                        if(succes && ytime != data.price) {
+                            x = parseTime(data.time);
+                            y = data.price;
+                            ytime = y;
+                            series.addPoint([x, y], true);
+                        }
+                        inter = data.inter;
+                        //inter = 10000;
+                    });
+
+                }, inter);
             }
         }
-    },*/
+
+    },
 
     rangeSelector: {
         enabled: false
@@ -59,20 +76,22 @@
             return o1.period.compareTo(o2.period);
         }
     })}" var="d">
-                    <g:if test="${d.period <= new BigInteger(ciclo)}">
+        <g:if test="${d.period <= new BigInteger(ciclo)}">
 
-                        [parseTime("${d.time}"),${d.price}],
-                    </g:if>
-                </g:each>]
+            [parseTime("${d.time}"),${d.price}],
+        </g:if>
+    </g:each>]
     }]
 });
 </g:each>
+    });
 function parseTime(time) {
     var parts = time.split(':');
     var date = new Date();
     date.setHours(parts[0],parts[1],parts[2]);
     return date.getTime();
 }
+
 </g:javascript>
 
 </html>
