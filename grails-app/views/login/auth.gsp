@@ -7,7 +7,6 @@
 </head>
 
 <body style="align : left">
-<t
 <g:if test='${flash.message}'>
     <div class='login_message'>${flash.message}</div>
 </g:if>
