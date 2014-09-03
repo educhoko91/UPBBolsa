@@ -1,6 +1,7 @@
 <%@ page import="org.apache.tomcat.jni.User; edu.upb.upbBolsa.Broker" %>
 <html>
 <head>
+    <meta name="layout" content="upbolsa">
     <g:javascript library="jquery"/>
     <g:javascript library="jquery-ui"/>
     <r:layoutResources/>

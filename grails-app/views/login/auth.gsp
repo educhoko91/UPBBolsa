@@ -7,12 +7,9 @@
 </head>
 
 <body style="align : left">
-<t
 <g:if test='${flash.message}'>
     <div class='login_message'>${flash.message}</div>
 </g:if>
-<div class="wrap">
-    <div id="content">
         <table width="650" valign="top" class="cssform">
             <tr>
                 <td width="200" valign="top">
@@ -69,7 +66,5 @@
                 </td>
             </tr>
         </table>
-    </div>
-</div>
 </body>
 </html>

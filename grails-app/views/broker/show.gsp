@@ -22,21 +22,12 @@
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
 			<ol class="property-list broker">
-			
-				<g:if test="${brokerInstance?.user}">
-				<li class="fieldcontain">
-					<span id="user-label" class="property-label"><g:message code="broker.user.label" default="User: " /></span>
-					
-						<span class="property-value" aria-labelledby="user-label"><g:link controller="user" action="show" id="${brokerInstance?.user?.id}">${brokerInstance?.user?.encodeAsHTML()}</g:link></span>
-					
-				</li>
-				</g:if>
 
                 <g:if test="${brokerInstance?.user?.username}">
                     <li class="fieldcontain">
                         <span id="username-label" class="property-label"><g:message code="broker.user.username.label" default="Email: " /></span>
 
-                        <span class="property-value" aria-labelledby="username-label"><g:link controller="user" action="show" id="${brokerInstance?.user?.id}">${brokerInstance?.user?.username.encodeAsHTML()}</g:link></span>
+                        <span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${brokerInstance}" field="user.username"/></span>
 
                     </li>
                 </g:if>
