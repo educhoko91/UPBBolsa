@@ -56,7 +56,7 @@
             <li><a href="">Config Sistema</a></li>
             <li><a href="">Crear Empresa</a></li>
             <li><a href="">Crear Noticia</a></li>
-            <li><a href="">Config brocker</a></li>
+            <li><g:link controller="Broker" action="list">Config brocker</g:link></li>
             <li><a href="">Config Sistema</a></li>
             <li><a href="">Habilitar Usuario</a></li>
             <li><a href="">Asignar Cajero</a></li>
