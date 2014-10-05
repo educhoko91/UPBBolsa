@@ -10,19 +10,10 @@
 <head>
     <meta name="layout" content="upbolsa"/>
     <title></title>
-
 </head>
-
-
-
-
-
 <body>
-
-<h1>Series</h1>
-<table>
-    <%=compTable%>
-</table>
+<h1>${companie.name} (${companie.code})</h1>
+<div id="container"></div>
 </body>
 <g:javascript>
 
@@ -32,8 +23,7 @@ $(document).ready(function() {
 			useUTC : false
 		}
 	});
-    <g:each in="${companies}" var="c">
-    var chart${c.serie.id} =  $('#container${c.serie.id}').highcharts('StockChart',{
+    var chart =  $('#container').highcharts('StockChart',{
 
     chart : {
         events : {
@@ -46,7 +36,7 @@ $(document).ready(function() {
                 var succes = false;
                 var ytime = -9999;
                 setInterval(function() {
-                    $.getJSON("${createLink(controller: 'series', action: 'updateSeries')}",{'id':${c.serie.id}}, function(data) {
+                    $.getJSON("${createLink(controller: 'series', action: 'updateSeries')}",{'id':${companie.serie.id}}, function(data) {
                         succes = data.succes;
                         if(succes && ytime != data.price) {
                             x = parseTime(data.time);
@@ -72,8 +62,8 @@ $(document).ready(function() {
         enabled: false
     },
     series : [{
-        name : 'Random data',
-        data : [<g:each in="${c.serie.datos.sort(new Comparator<DatoSerie>() {
+        name : 'Precio',
+        data : [<g:each in="${companie.serie.datos.sort(new Comparator<DatoSerie>() {
         int compare(DatoSerie o1, DatoSerie o2) {
             return o1.period.compareTo(o2.period);
         }
@@ -85,7 +75,6 @@ $(document).ready(function() {
     </g:each>]
     }]
 });
-</g:each>
     });
 function parseTime(time) {
     var parts = time.split(':');
