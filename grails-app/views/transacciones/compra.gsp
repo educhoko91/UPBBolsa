@@ -10,9 +10,14 @@
 <head>
     <title>Compra</title>
     <meta name="layout" content="upbolsa">
+
 </head>
 
 <body>
-
+    <div class="info-compra">
+                <span>User: ${user.username}</span>
+                <span>Capital:</span>
+                <span>Empresa: </span><g:select name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}"></g:select>
+    </div>
 </body>
 </html>

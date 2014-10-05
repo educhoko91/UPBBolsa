@@ -1,5 +1,7 @@
 package Registration
 
+import edu.upb.upbBolsa.Broker
+
 class User {
 
 	transient springSecurityService
@@ -8,6 +10,8 @@ class User {
 	String password
     String fullname
     String verify_password
+    Broker broker
+    double capital
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
@@ -19,7 +23,7 @@ class User {
     static searchable = [only: ['username', 'fullname']]
 
 	static constraints = {
-		username blank: false, unique: true, email:true
+		username blank: false, unique: true
 		password blank: false
         fullname blank: false, unique: true
         verify_password blank: false
