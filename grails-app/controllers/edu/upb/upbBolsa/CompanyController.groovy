@@ -78,7 +78,7 @@ class CompanyController {
                     datos.period = s.period
                     datos.price = s.price
                     datos.time = calcTime(s.period);
-                    datos.save()
+                    datos.save(failOnError: true);
                 }
 
             }
