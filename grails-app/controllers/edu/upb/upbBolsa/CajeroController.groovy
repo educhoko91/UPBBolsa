@@ -14,7 +14,8 @@ class CajeroController {
 
     def springSecurityService
     def save(){
-        User habilitado = User.findByUsername(params.correo);
+        User habilitado = User.findByUsername(params.username);
+
         print("numero habilitaciones " + VariablesSistema.findByNombre('numHabilit').getValue())
         if (habilitado.numeroHabilitaciones > VariablesSistema.findByNombre('numHabilit').getValue() ){
             flash.message = "Ya no tiene mas habilitaciones disponibles"
@@ -25,6 +26,8 @@ class CajeroController {
             habilitaciones.habilitado = habilitado;
             habilitaciones.save()
             habilitado.numeroHabilitaciones += 1
+            habilitado.capital = Double.parseDouble(VariablesSistema.findByNombre('capInicio').getValue())
+            habilitado.save()
         }
 
     }

@@ -26,8 +26,8 @@
 <body>
 
 <g:form action="save" class="cssform">
-    Nombre y Apellido: <input type="text" name="nombre" class="inputUserCajero"/><br>
-    Correo: <g:field type="text" name="correo"/><br>
+    <span>Username:</span><g:select name="username" from="${Registration.User.findAll().username}"></g:select>
+    %{--Correo: <g:field type="text" name="correo"/><br>--}%
     <g:submitButton name="submit" value="Habilitar" />
     <g:if test="${flash.message}">
         <div class="message" role="status">${flash.message}</div>
