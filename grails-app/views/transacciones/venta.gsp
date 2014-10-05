@@ -13,6 +13,19 @@
 </head>
 
 <body>
-
+    <div class="info-venta">
+        Dinero en mi cuenta: 200
+    </div>
+    <div class="data-venta">
+        <span>Empresa:</span> <g:select name="empresa" from="${edu.upb.upbBolsa.Company.findAll().name}">Empresa</g:select>
+        <span>Cantidad:</span> <input type="text" name="cantidad">
+    </div>
+    <div class="data-simulacion">
+        <span>Precio de la accion: </span>
+        <span>Precio total: 200</span>
+    </div>
+    <div class="buttons-venta">
+        <g:link controller="transacciones" action="venta"><button type="button">Vender</button></g:link>
+    </div>
 </body>
 </html>

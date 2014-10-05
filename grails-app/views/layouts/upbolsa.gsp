@@ -44,7 +44,7 @@
     <div id="right">
         <h1>Menu Basico</h1>
         <ul>
-            <li><a href="">Seriast</a></li>
+            <li><a href="">Series</a></li>
             <li><a href="">Noticias</a></li>
             <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
             <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
