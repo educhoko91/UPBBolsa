@@ -7,6 +7,7 @@ class TransaccionesController {
     def springSecurityService
     def index() {
         render view: 'transacciones'
+
     }
 
     def compra(){
@@ -16,6 +17,7 @@ class TransaccionesController {
     }
 
     def venta(){
-        render view: 'venta'
+        User user = springSecurityService.currentUser
+        [user: user]
     }
 }
