@@ -23,6 +23,9 @@
 </head>
 <body>
 <div>
+    <g:if test='${flash.message}'>
+        <div>${flash.message}</div>
+    </g:if>
     <table>
         <tr>
             <td>

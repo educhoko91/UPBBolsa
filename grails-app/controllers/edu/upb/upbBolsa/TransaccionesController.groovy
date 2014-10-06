@@ -135,7 +135,12 @@ class TransaccionesController {
         int val = SyncEngineService.ciclo as int;
         int val2 = serie_selected.id as int;
         def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
-        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8,String.valueOf(result).length()-2))
+        if (String.valueOf(result) == null || String.valueOf(result) == "" || String.valueOf(result) == "[]"){
+            flash.message = "No se inicio la simulacion"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8, String.valueOf(result).length() - 2))
 
         trans.montounitario = trueValueOfPrice;
         trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
@@ -143,12 +148,17 @@ class TransaccionesController {
         trans.tipo = "compra";
         trans.cantidadacciones = params.quantity_capital as int;
         def user = User.findByUsername(params.select_user)
-        if(user.capital < trans.montototal){
+
+        def result2 = db.rows("SELECT value FROM variables_sistema WHERE nombre = 'costoTransfer';")
+        double costTrans = Double.parseDouble(String.valueOf(result2).substring(8, String.valueOf(result2).length() - 2))
+
+        if(user.capital < trans.montototal + costTrans){
             flash.message = "No posee suficiente Capital"
             redirect(controller: 'brokerFunctions', action: 'adminUsers')
             return
         }
-        user.capital -= trans.montototal
+        user.capital = user.capital - trans.montototal - costTrans
+
         if(!trans.save() && !user.save()){
             flash.message = "Compra Fallida"
             redirect(controller: 'brokerFunctions', action: 'adminUsers')
@@ -171,20 +181,28 @@ class TransaccionesController {
         int val = SyncEngineService.ciclo as int;
         int val2 = serie_selected.id as int;
         def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
-        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8,String.valueOf(result).length()-2))
-
+        if (String.valueOf(result) == null || String.valueOf(result) == "" || String.valueOf(result) == "[]") {
+            flash.message = "No se inicio la simulacion"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+            double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8, String.valueOf(result).length() - 2))
         trans.montounitario = trueValueOfPrice;
         trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
         trans.periodo=SyncEngineService.ciclo as int;
         trans.tipo = "venta";
         trans.cantidadacciones = params.quantity_capital as int;
         def user = User.findByUsername(params.select_user)
-        if(user.capital < trans.cantidadacciones){
+
+        def result2 = db.rows("SELECT value FROM variables_sistema WHERE nombre = 'costoTransfer';")
+        double costTrans = Double.parseDouble(String.valueOf(result2).substring(8, String.valueOf(result2).length() - 2))
+
+        if(user.capital < trans.cantidadacciones + costTrans){
             flash.message = "No posee suficiente Capital"
             redirect(controller: 'brokerFunctions', action: 'adminUsers')
             return
         }
-        user.capital += trans.montototal
+        user.capital = user.capital + trans.montototal - costTrans
         if(!trans.save() && !user.save()){
             render "Venta Fallida"
             redirect(controller: 'brokerFunctions', action: 'adminUsers')

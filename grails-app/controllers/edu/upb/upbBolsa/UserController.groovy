@@ -20,6 +20,11 @@ class UserController {
     def sendBrokerMessages(){
         if (request.method == 'POST') {
             def user = User.findByUsername (params.search_broker)
+            if(user == null){
+                flash.message = 'Este broker no existe'
+                redirect(controller: 'user', action: 'brokerMessages')
+                return
+            }
             def broker = Broker.findByUser(user)
             User user2 = springSecurityService.currentUser;
             if(broker.userslimit > broker.users.size() && user2.broker == null) {
@@ -27,7 +32,7 @@ class UserController {
                 user2.broker = broker;
             }
             else{
-                flash.message = 'Este broker ya no puede aceptar mas usuarios o este broker ya te tiene registrado'
+                flash.message = "Este broker ya no puede aceptar mas usuarios o este broker ya te tiene registrado"
             }
             redirect(controller: 'user', action: 'brokerMessages')
         }

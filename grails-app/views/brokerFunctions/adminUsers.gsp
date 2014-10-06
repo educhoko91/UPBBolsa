@@ -10,22 +10,12 @@
 <head>
     <meta name="layout" content="upbolsa">
     <title>Administrar Usuarios</title>
-    <script type="text/javascript">
-        function updateValues(){
-            var companyNombre = $('.empresaNombre').val();
-            console.log('nombreCompania', companyNombre);
-            $.getJSON("${createLink(controller: 'brokerFunctions', action: 'refresh')}",{'nombre':companyNombre}, function(data) {
-                $('.precio-accion').html(data.precio)
-                console.log("precio actual",data.precio)
-            });
-        }
-
-
-    </script>
 </head>
 <body>
 <div>
-
+    <g:if test='${flash.message}'>
+        <div>${flash.message}</div>
+    </g:if>
     <p>
     <h2>Usuarios</h2>
     <g:form class="cssform" url="[controller: 'transacciones', action: 'brokerMove']" >
