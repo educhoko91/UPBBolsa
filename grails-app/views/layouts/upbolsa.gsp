@@ -57,11 +57,10 @@
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <h1>Menu Admin</h1>
         <ul>
-            <li><a href="">Config Sistema</a></li>
+            <li><g:link controller="configSis" action="index">Config Sistema</g:link> </li>
             <li> <g:link controller="company" action="create"> Crear Empresa</g:link> </li>
             <li><a href="">Crear Noticia</a></li>
             <li><g:link controller="Broker" action="list">Config brocker</g:link></li>
-            <li><a href="">Config Sistema</a></li>
             <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
             <li><a href="">Asignar Cajero</a></li>
             <li><a href="">Caja</a></li>

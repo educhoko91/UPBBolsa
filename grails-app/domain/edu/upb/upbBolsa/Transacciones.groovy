@@ -7,8 +7,8 @@ class Transacciones {
     User usuario
     Broker broker
     Company empresa
-    int montounitario
-    int montototal
+    double montounitario
+    double montototal
     int periodo
     String tipo
     int cantidadacciones
