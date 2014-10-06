@@ -6,9 +6,7 @@ import upbbolsa.SyncEngineService
 import javax.validation.constraints.Null
 
 class TransaccionesController {
-
-
-
+    private double precioGlobal
     def springSecurityService
     def index() {
         render view: 'transacciones'
@@ -69,6 +67,7 @@ class TransaccionesController {
         Serie serieEmpresa = company.serie
         DatoSerie datoSerie = DatoSerie.findByPeriodAndSerie(cicloSerie, serieEmpresa)
         BigDecimal precio = datoSerie.price
+        precioGlobal = precio.toDouble()
 
 
         render(contentType: 'text/json') {
@@ -79,4 +78,19 @@ class TransaccionesController {
 
     }
 
+    def ventaAccion(){
+        Transacciones transaccion = new Transacciones()
+        Company empresa = Company.findByName(params.empresa)
+        User usuario = springSecurityService.currentUser
+        transaccion.usuario = usuario
+        transaccion.cantidadacciones = Integer.parseInt(params.cantidad)
+        transaccion.montounitario = precioGlobal
+        transaccion.montototal = precioGlobal * Integer.parseInt(params.cantidad)
+        transaccion.periodo = SyncEngineService.ciclo
+        transaccion.tipo = "Venta"
+        transaccion.empresa = empresa
+        transaccion.broker = null
+        transaccion.save()
+//        render(view: 'venta',  user: usuario, precio: 0)
+    }
 }
