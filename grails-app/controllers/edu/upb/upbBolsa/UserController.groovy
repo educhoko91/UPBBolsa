@@ -12,7 +12,9 @@ class UserController {
     }
 
     def brokerMessages(){
-
+        User user = springSecurityService.currentUser
+        params.params_message_sent = user.mensaje;
+        render view:'brokerMessages.gsp'
     }
 
     def sendBrokerMessages(){
