@@ -46,7 +46,7 @@
         <sec:ifLoggedIn>
             <h1>Menu Basico</h1>
             <ul>
-                <li><a href="">Series</a></li>
+                <li><g:link controller="series" action="index">Serie</g:link></li>
                 <li><a href="">Noticias</a></li>
                 <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
                 <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
@@ -64,7 +64,9 @@
             <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
             <li><a href="">Asignar Cajero</a></li>
             <li><a href="">Caja</a></li>
-            <li><a href="">Reiniciar Sistema</a></li>
+            <g:if test="${upbbolsa.SyncEngineService.isRunning()}">
+                <li> <g:link controller="simulation" action="stop">Parar Simulacion</g:link> </li>
+            </g:if>
         </ul>
     </sec:ifAllGranted>
     </div>

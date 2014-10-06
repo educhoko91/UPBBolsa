@@ -26,7 +26,7 @@ class BrokerController {
         if (request.method == 'POST') {
             def db = new Sql(dataSource)
             String val = String.valueOf(params.user.id)
-            def result = db.rows("SELECT id FROM USER WHERE username = ?;", [val])
+            def result = db.rows("SELECT id FROM user WHERE username = ?;", [val])
             int trueValueOfUserId = Integer.parseInt(String.valueOf(result).substring(5,String.valueOf(result).length()-2))
             params.user.id = trueValueOfUserId
             params."user.id" = trueValueOfUserId
