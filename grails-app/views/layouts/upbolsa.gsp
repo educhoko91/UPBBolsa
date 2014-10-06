@@ -43,15 +43,17 @@
 
 <div class="wrap">
     <div id="right">
-        <h1>Menu Basico</h1>
-        <ul>
-            <li><a href="">Series</a></li>
-            <li><a href="">Noticias</a></li>
-            <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
-            <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
-            <li><g:link controller="transacciones" action="index">Ver</g:link></li>
-            <br/>
-        </ul>
+        <sec:ifLoggedIn>
+            <h1>Menu Basico</h1>
+            <ul>
+                <li><a href="">Series</a></li>
+                <li><a href="">Noticias</a></li>
+                <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
+                <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
+                <li><g:link controller="transacciones" action="index">Ver</g:link></li>
+                <br/>
+            </ul>
+        </sec:ifLoggedIn>
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <h1>Menu Admin</h1>
         <ul>
