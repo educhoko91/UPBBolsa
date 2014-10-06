@@ -48,8 +48,6 @@ class TransaccionesController {
     def comprar() {
 
         print(precioGlobal)
-
-        int id = 0;
          def trans = new Transacciones();
         // trans.id = id;
          trans.usuario = springSecurityService.currentUser;
@@ -96,31 +94,33 @@ class TransaccionesController {
     }
 
     def ventaAccion(){
-        def transaccion = new Transacciones()
+
         Company empresa = Company.findByName(params.empresa)
         User usuario = springSecurityService.currentUser
         int numeroAcciones = 0
         for(Transacciones trans : Transacciones.findAllByUsuario(usuario)){
             numeroAcciones += trans.cantidadacciones
         }
-//        if(Integer.parseInt(params.cantidad) > numeroAcciones){
-//            print "No tiene suficientes acciones"
-//            flash.message = "No tiene suficientes acciones"
-//            return
-//        }
-        print "pase el if"
-        transaccion.usuario = usuario
-        transaccion.cantidadacciones = Integer.parseInt(params.cantidad)
-        transaccion.montounitario = precioGlobal
-        transaccion.montototal = precioGlobal * Double.parseDouble(params.cantidad)
-        transaccion.periodo = SyncEngineService.ciclo as int
-        transaccion.tipo = "venta"
-        transaccion.empresa = empresa
-        transaccion.broker = null
-        if(!transaccion.save()){
-            render "Han ocurrido errores"
+        if(Integer.parseInt(params.cantidad) > numeroAcciones){
+            print "No tiene suficientes acciones"
+            flash.message = "No tiene suficientes acciones"
+            return
         }
+        def trans = new Transacciones();
+        // trans.id = id;
+        trans.usuario = springSecurityService.currentUser;
+        trans.broker = null;
+        trans.empresa = Company.findByName(params.empresa);
+        trans.montounitario = precioGlobal;
+        trans.montototal = precioGlobal*Double.parseDouble(params.cantidad);
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "venta";
+        trans.cantidadacciones = params.cantidad as int;
 
-//        render(view: 'venta',  user: usuario, precio: 0)
+        if(!trans.save()){
+            render "NO SE PUDO REALIZAR LA Venta"
+        }else{
+            render "venta exitosa"
+        }
     }
 }
