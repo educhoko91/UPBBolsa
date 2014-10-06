@@ -15,7 +15,6 @@
 <h1>${companie.name} (${companie.code})</h1>
 
 <div>
-    <h2>
     <table>
         <tr>
             <td>
@@ -43,7 +42,6 @@
         </tr>
 
     </table>
-    </h2>
 </div>
 
 
@@ -80,6 +78,7 @@ $(document).ready(function() {
                             y = data.price;
                             ytime = y;
                             series.addPoint([x, y], true);
+                            updateStats(data.stats);
                         }
                         inter = data.inter;
                         //inter = 10000;
@@ -121,7 +120,10 @@ function parseTime(time) {
 }
 
 function updateStats(stats) {
-    $("")
+    $("#mean").text(stats.mean.toFixed(2));
+    $("#min").text(stats.min.toFixed(2));
+    $("#max").text(stats.max.toFixed(2));
+
 }
 
 </g:javascript>
