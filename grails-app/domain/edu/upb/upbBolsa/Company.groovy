@@ -5,8 +5,7 @@ class Company{
     String name;
     String code;
     static hasOne = [serie:Serie];
-    Noticia lastNoticiaDisplayed;
-    static hasMany = [noticias:Noticia]
+    Noticia lastNoticiaDisplayed
 
     static constraints = {
         name(blank: false,maxSize: 50, nullable:false, unique: true)

@@ -17,24 +17,24 @@ class NoticiaController {
     def save(){
         def noticia = new Noticia(params);
 //        print "paso new noticia"
-        print (params)
-        for(String n : params.companies){
-            Integer i = Integer.parseInt(n);
-            def auxCompany = Company.get(i);
-            noticia.addToCompanies(auxCompany);
-            auxCompany.addToNoticias(noticia);
-            auxCompany.save(flush: true);
-        }
-
-        print(noticia);
-
         if(noticia.validate()){
             noticia.save(flush: true);
-
+            for(String n : params.companies){
+                Long i = Long.parseLong(n);
+                def auxCompany = Company.findById(i);
+                def rel = new NoticiaCompRel(noticiaId: noticia.id, companyId: auxCompany.id);
+                rel.save();
+            }
         }
         else {
             flash.message = "La noticia no pudo ser guardada en base de datos, revise que los campos obligatorios hayan sido llenados correctamente"
         }
+        print (params)
+
+
+//        print(noticia);
+
+
         redirect(action: "create")
     }
 
@@ -49,7 +49,7 @@ class NoticiaController {
                 redirect(action: "create")
             }
         }catch (DataIntegrityViolationException e){
-            print "no se pudo borrar"
+            print "no se pudo editar"
         }
     }
     def update(){
@@ -58,12 +58,63 @@ class NoticiaController {
         noticia.setTitulo(params.titulo);
         noticia.setDescripcion(params.descripcion)
         noticia.setPeriodo(Integer.parseInt(params.periodo))
-        HashSet<Company> companies = new HashSet<>()
-        for(String n : params.companies){
-            companies.add(Company.get(Integer.parseInt(n)))
+        noticia.save();
+        def noticiasRelToDel = NoticiaCompRel.findAllByNoticiaId(noticia.id)
+
+        for(NoticiaCompRel n: noticiasRelToDel){
+            try{
+                n.delete(flush: true)
+            }catch (DataIntegrityViolationException e){
+                print "no se pudo borrar"
+            }
         }
-        noticia.setCompanies(companies)
+//        HashSet<Company> companies = new HashSet<>()
+        for(String n : params.companies){
+            Long i = Long.parseLong(n);
+            def auxCompany = Company.findById(i);
+            def rel = new NoticiaCompRel(noticiaId: noticia.id, companyId: auxCompany.id);
+            rel.save();
+        }
+//        noticia.setCompanies(companies)
         redirect(action: "create")
+    }
+
+    def list(){
+        def noticias = Noticia.findAllByPeriodoLessThanEquals(SyncEngineService.getCiclo());
+        [noticias:noticias]
+    }
+    def show(){
+        try{
+            def noticia = Noticia.get(params.id);
+            if(noticia){
+                [noticiaInstance: noticia]
+            }
+            else{
+                flash.message = "selecciono una instancia de noticia que ya no existe"
+                redirect(action: "create")
+            }
+        }catch (DataIntegrityViolationException e){
+            print "no se pudo mostrar"
+        }
+    }
+
+    def delete(){
+        try{
+            def noticia = Noticia.get(params.id);
+            def noticiasRelToDel = NoticiaCompRel.findAllByNoticiaId(noticia.id)
+
+            for(NoticiaCompRel n: noticiasRelToDel){
+                try{
+                    n.delete(flush: true)
+                }catch (DataIntegrityViolationException e){
+                    print "no se pudo borrar"
+                }
+            }
+            noticia.delete(flush: true)
+        }catch (DataIntegrityViolationException e){
+            print "no se pudo borrar"
+        }
+        redirect(action: "create", params: params)
     }
 
     def getNoticiasBySerieAndPeriod(long serieId){
@@ -75,9 +126,8 @@ class NoticiaController {
         print(company);
         Noticia displayedNotice = null;
         for(Noticia n : lnoticias){
-            print("ncompanies"+ n.companies);
-            print n.companies.contains(company)
-            if(n.companies.contains(company)){
+            def aux = NoticiaCompRel.findAllByNoticiaIdAndCompanyId(n.id,company.id);
+            if(aux.size()>0){
                 displayedNotice = n;
                 company.setLastNoticiaDisplayed(n);
                 break;
@@ -96,8 +146,8 @@ class NoticiaController {
         else if(company.lastNoticiaDisplayed != null){
             render(contentType: 'text/json') {
                 [
-                        'change':false,
-                        'title':company.lastNoticiaDisplayed.getTitulo(),
+                        'change':true,
+                        'title':company.lastNoticiaDisplayed.titulo,
                         'contenido':company.lastNoticiaDisplayed.descripcion,
                 ]
             }

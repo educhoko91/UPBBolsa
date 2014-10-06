@@ -48,8 +48,11 @@
 <div id="container"></div>
 
 <div>
-    <span class="title"></span>
-    <span class="contenido"></span>
+    <span id="title" style="font-size: 24;">${lastNoticiaData.title}</span>
+    <br />
+    <br />
+
+    <span id="contenido">${lastNoticiaData.descripcion}</span>
 </div>
 
 </body>
@@ -93,8 +96,13 @@ $(document).ready(function() {
                     $.getJSON("${createLink(controller: 'noticia', action: 'getNoticiasBySerieAndPeriod')}",{'serieId':${companie.serie.id}}, function(data){
                         console.log('data',data);
                         if(data.change){
-                            $('.title').innerHTML = "<label>"+data.title+"</label>";
-                            $('.contenido').innerHTML = "<label>"+data.contenido+"</label>";
+                            if(data.title!=""){
+                                $('#title').text(data.title);
+
+                            }
+                            if(data.contenido!=""){
+                                $('#contenido').text(data.contenido);
+                            }
                         }
                     });
 

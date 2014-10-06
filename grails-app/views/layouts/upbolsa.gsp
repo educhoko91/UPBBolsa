@@ -47,7 +47,7 @@
             <h1>Menu Basico</h1>
             <ul>
                 <li><g:link controller="series" action="index">Serie</g:link></li>
-                <li><a href="">Noticias</a></li>
+                <li><g:link controller="noticia" action="list">Noticias</g:link></li>
                 <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
                 <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
                 <li><g:link controller="transacciones" action="index">Ver</g:link></li>
@@ -59,7 +59,7 @@
         <ul>
             <li><g:link controller="configSis" action="index">Config Sistema</g:link> </li>
             <li> <g:link controller="company" action="create"> Crear Empresa</g:link> </li>
-            <li><a href="">Crear Noticia</a></li>
+            <li><g:link controller="noticia" action="create">Crear Noticia</g:link></li>
             <li><g:link controller="Broker" action="list">Config brocker</g:link></li>
             <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
             <li><a href="">Asignar Cajero</a></li>

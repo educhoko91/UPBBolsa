@@ -96,8 +96,32 @@ class SeriesController {
 
             //def charsData = charsData(companies);
             //[compTable: compTable, companies: companies, charsData:charsData];
-            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter(), stats: calcStatsData(id)];
+            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter(), stats: calcStatsData(id),lastNoticiaData:getNoticiaData(id)];
         }
+    }
+
+    private def getNoticiaData(long id){
+        def company = Company.findById(id);
+
+        def noticiasRel = NoticiaCompRel.findAllByCompanyId(id);
+        ArrayList<Long> noticias_ids = new ArrayList<>();
+        for(NoticiaCompRel n: noticiasRel){
+            noticias_ids.add(n.noticiaId);
+        }
+
+        def noticias = Noticia.findAllByIdInListAndPeriodoLessThanEquals(noticias_ids,SyncEngineService.getCiclo());
+
+        Collections.sort(noticias,new Comparator<Noticia>() {
+            @Override
+            int compare(Noticia o1, Noticia o2) {
+                return o2.periodo - o1.periodo;
+            }
+        })
+
+        noticias[0] ? company.setLastNoticiaDisplayed(noticias[0]):null;
+
+        [title:noticias[0]?.titulo? noticias[0].titulo:"", descripcion:noticias[0]?.descripcion ? noticias[0].descripcion:""];
+
     }
 
     private def calcStatsData(long id) {
