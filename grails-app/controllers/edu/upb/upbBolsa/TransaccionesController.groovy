@@ -1,6 +1,7 @@
 package edu.upb.upbBolsa
 
 import Registration.User
+import groovy.sql.Sql
 import upbbolsa.SyncEngineService
 
 import javax.validation.constraints.Null
@@ -8,6 +9,7 @@ import javax.validation.constraints.Null
 class TransaccionesController {
     private static double precioGlobal
     def springSecurityService
+    def dataSource
     def index() {
         render view: 'transacciones'
 
@@ -48,9 +50,10 @@ class TransaccionesController {
     def comprar() {
 
         print(precioGlobal)
+         User user = springSecurityService.currentUser;
          def trans = new Transacciones();
         // trans.id = id;
-         trans.usuario = springSecurityService.currentUser;
+         trans.usuario = user;
          trans.broker = null;
          trans.empresa = Company.findByName(params.empresas);
          trans.montounitario = precioGlobal;
@@ -58,8 +61,9 @@ class TransaccionesController {
          trans.periodo=SyncEngineService.ciclo as int;
          trans.tipo = "compra";
          trans.cantidadacciones = params.cantidadAcciones as int;
+        user.capital -= trans.montototal;
+         if(!trans.save() && !user.save()){
 
-         if(!trans.save()){
              render "NO SE PUDO REALIZAR LA COMPRA"
          }else{
              render "compra exitosa"
@@ -116,11 +120,17 @@ class TransaccionesController {
         trans.periodo=SyncEngineService.ciclo as int;
         trans.tipo = "venta";
         trans.cantidadacciones = params.cantidad as int;
-
-        if(!trans.save()){
+        usuario.capital += trans.montototal;
+        if(!trans.save() && !usuario.save()){
             render "NO SE PUDO REALIZAR LA Venta"
         }else{
             render "venta exitosa"
         }
+    }
+
+    def resumen(){
+        User user = springSecurityService.currentUser;
+        Transacciones [] trans = Transacciones.findAllByUsuario(user);
+        [transacciones : trans, user: user]
     }
 }

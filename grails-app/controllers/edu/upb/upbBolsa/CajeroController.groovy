@@ -27,7 +27,7 @@ class CajeroController {
             habilitaciones.habilitado = habilitado;
             habilitaciones.save()
             habilitado.numeroHabilitaciones += 1
-            habilitado.capital = Double.parseDouble(VariablesSistema.findByNombre('capInicio').getValue())
+            habilitado.capital += Double.parseDouble(VariablesSistema.findByNombre('capInicio').getValue())
             habilitado.save()
         }
         render view: "Habiltaciones.gsp"
