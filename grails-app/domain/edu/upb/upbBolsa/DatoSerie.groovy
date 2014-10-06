@@ -9,4 +9,5 @@ class DatoSerie {
 
     static constraints = {
     }
+
 }

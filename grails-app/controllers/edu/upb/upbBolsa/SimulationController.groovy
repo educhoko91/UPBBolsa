@@ -1,5 +1,7 @@
 package edu.upb.upbBolsa
 
+import upbbolsa.SyncEngineService
+
 class SimulationController {
 
     def syncEngineService
@@ -7,6 +9,10 @@ class SimulationController {
     def start() {
         syncEngineService.runEngine();
         redirect(controller: "series");
+    }
+    def stop() {
+        SyncEngineService.stop();
+        redirect(controller: "configSis");
     }
 
 }
