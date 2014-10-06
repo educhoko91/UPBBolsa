@@ -4,6 +4,7 @@ class Noticia {
     int periodo
     String titulo
     String descripcion
+    static belongsTo = Company;
     static hasMany = [companies:Company];
     static constraints = {
         companies(nullable: true)
