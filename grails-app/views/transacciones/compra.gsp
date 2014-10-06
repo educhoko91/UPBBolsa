@@ -25,24 +25,24 @@
         }
 
         function calccosto(){
-            var cantidad = $(".cantidad").val();
-            var capitaluser = $(".capital").val();
+            var cantidad = parseFloat($(".cantidad").val());
+            var capitaluser = parseFloat($(".capital").val());
             console.log("pre",precioaccom);
-            var costtrans = $(".costoTransfer").val();
-            var total = (cantidad*precioaccom)+costtrans;
-            var saldo = capitaluser-total;
+            var costtrans = parseFloat($(".costoTransfer").val());
+            var total = parseFloat((cantidad*precioaccom)+costtrans);
+            var saldo = parseFloat(capitaluser-total);
             console.log("costo",total);
             console.log("capital",capitaluser);
-            if(parseInt(capitaluser)<parseInt(total)){
+            if(parseFloat(capitaluser)<parseFloat(total)){
                 $(".mostrarsaldo").html("SALDO INSUFICIENTE");
                  $(".subbutton").hide();
             }else{
                 $(".mostrarsaldo").html(total);
                 $(".subbutton").show();
-            }
+
             $(".saldo").html(saldo);
 
-
+            }
         }
     </g:javascript>
 </head>

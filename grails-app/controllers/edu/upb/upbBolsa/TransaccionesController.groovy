@@ -61,15 +61,20 @@ class TransaccionesController {
          trans.periodo=SyncEngineService.ciclo as int;
          trans.tipo = "compra";
          trans.cantidadacciones = params.cantidadAcciones as int;
-        user.capital -= trans.montototal;
-         if(!trans.save() && !user.save()){
-
-             render "NO SE PUDO REALIZAR LA COMPRA"
+        user.capital -= trans.montototal
+         if(trans.montototal>trans.usuario.capital){
+             render "saldo insuficiente"
          }else{
-             render "compra exitosa"
+             if(!trans.save() && !user.save()){
+
+                 render "NO SE PUDO REALIZAR LA COMPRA"
+             }else{
+                 render "compra exitosa"
+             }
+
+         }
          }
 
-        }
 
     def venta(){
         User user = springSecurityService.currentUser
