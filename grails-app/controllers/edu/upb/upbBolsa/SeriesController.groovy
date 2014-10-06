@@ -93,10 +93,10 @@ class SeriesController {
                 print("ciclo =" + ciclo);
                 ciclo = SyncEngineService.getCiclo();
             }
-            def noticias = Noticia.getAll();
+
             //def charsData = charsData(companies);
             //[compTable: compTable, companies: companies, charsData:charsData];
-            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter(), stats: calcStatsData(id),noticias:noticias];
+            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter(), stats: calcStatsData(id)];
         }
     }
 

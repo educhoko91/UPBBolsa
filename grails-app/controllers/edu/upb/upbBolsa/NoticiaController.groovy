@@ -1,6 +1,7 @@
 package edu.upb.upbBolsa
 
 import org.springframework.dao.DataIntegrityViolationException
+import upbbolsa.SyncEngineService
 
 class NoticiaController {
 
@@ -21,6 +22,8 @@ class NoticiaController {
             Integer i = Integer.parseInt(n);
             def auxCompany = Company.get(i);
             noticia.addToCompanies(auxCompany);
+            auxCompany.addToNoticias(noticia);
+            auxCompany.save(flush: true);
         }
 
         print(noticia);
@@ -61,5 +64,52 @@ class NoticiaController {
         }
         noticia.setCompanies(companies)
         redirect(action: "create")
+    }
+
+    def getNoticiasBySerieAndPeriod(long serieId){
+        print "ciclo "+SyncEngineService.getCiclo();
+        Serie s = Serie.get(serieId)
+        Company company = s.company;
+        List<Noticia> lnoticias = Noticia.findAllByPeriodo(SyncEngineService.getCiclo());
+//        print lnoticias;
+        print(company);
+        Noticia displayedNotice = null;
+        for(Noticia n : lnoticias){
+            print("ncompanies"+ n.companies);
+            print n.companies.contains(company)
+            if(n.companies.contains(company)){
+                displayedNotice = n;
+                company.setLastNoticiaDisplayed(n);
+                break;
+            }
+        }
+        if(displayedNotice !=null){
+            render(contentType: 'text/json') {
+                [
+                        'change': true,
+                        'title': displayedNotice.titulo,
+                        'contenido' : displayedNotice.descripcion,
+                ]
+            }
+
+        }
+        else if(company.lastNoticiaDisplayed != null){
+            render(contentType: 'text/json') {
+                [
+                        'change':false,
+                        'title':company.lastNoticiaDisplayed.getTitulo(),
+                        'contenido':company.lastNoticiaDisplayed.descripcion,
+                ]
+            }
+        }
+        else{
+            render(contentType: 'text/json') {
+                [
+                        'change':false,
+                        'title':"",
+                        'contenido':"",
+                ]
+            }
+        }
     }
 }
