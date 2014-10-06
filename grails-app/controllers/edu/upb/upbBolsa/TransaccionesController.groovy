@@ -6,7 +6,7 @@ import upbbolsa.SyncEngineService
 import javax.validation.constraints.Null
 
 class TransaccionesController {
-    private double precioGlobal
+    private static double precioGlobal
     def springSecurityService
     def index() {
         render view: 'transacciones'
@@ -28,7 +28,7 @@ class TransaccionesController {
             if(!(datoserieInstance instanceof Null)){
                 print(datoserieInstance)
                 BigDecimal precio = datoserieInstance.price;
-
+                precioGlobal = precio.toDouble();
                 render(contentType: 'text/json'){
                     [
                             'precio' : precio,
@@ -46,10 +46,27 @@ class TransaccionesController {
 
 
     def comprar() {
-         Transacciones trans = new Transacciones();
-         trans.cantidadacciones = params.cantidadAcciones;
-         trans.empresa = params.empresas;
-         trans.
+
+        print(precioGlobal)
+
+        int id = 0;
+         def trans = new Transacciones();
+        // trans.id = id;
+         trans.usuario = springSecurityService.currentUser;
+         trans.broker = null;
+         trans.empresa = Company.findByName(params.empresas);
+         trans.montounitario = precioGlobal;
+         trans.montototal = precioGlobal*Double.parseDouble(params.cantidadAcciones);
+         trans.periodo=SyncEngineService.ciclo as int;
+         trans.tipo = "compra";
+         trans.cantidadacciones = params.cantidadAcciones as int;
+
+         if(!trans.save()){
+             render "NO SE PUDO REALIZAR LA COMPRA"
+         }else{
+             render "compra exitosa"
+         }
+
         }
 
     def venta(){
