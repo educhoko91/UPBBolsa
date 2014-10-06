@@ -3,6 +3,8 @@ package edu.upb.upbBolsa
 import Registration.User
 import upbbolsa.SyncEngineService
 
+import javax.validation.constraints.Null
+
 class TransaccionesController {
     private double precioGlobal
     def springSecurityService
@@ -17,12 +19,48 @@ class TransaccionesController {
 
     }
 
+    def listDetail(String company) {
+        Company companyInstance = Company.findByName(company);
+        print(companyInstance)
+        Serie serie = Serie.findByCompany(companyInstance)
+
+            DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
+            if(!(datoserieInstance instanceof Null)){
+                print(datoserieInstance)
+                BigDecimal precio = datoserieInstance.price;
+
+                render(contentType: 'text/json'){
+                    [
+                            'precio' : precio,
+                    ]
+
+                }
+            } else{
+                redirect(controller: "company", action: "create", params: params)
+            }
+
+
+
+ }
+
+
+
+    def comprar() {
+         Transacciones trans = new Transacciones();
+         trans.cantidadacciones = params.cantidadAcciones;
+         trans.empresa = params.empresas;
+         trans.
+        }
+
     def venta(){
         User user = springSecurityService.currentUser
         int numeroSerie = SyncEngineService.ciclo
+
         [user: user, precio: 0]
     }
     def actualizarValores(String nombre){
+        print("Valor company")
+        print(nombre)
         Company company = Company.findByName(nombre)
         int ciclo = SyncEngineService.ciclo
         BigInteger cicloSerie = new BigInteger(ciclo+"")
@@ -30,6 +68,7 @@ class TransaccionesController {
         DatoSerie datoSerie = DatoSerie.findByPeriodAndSerie(cicloSerie, serieEmpresa)
         BigDecimal precio = datoSerie.price
         precioGlobal = precio.toDouble()
+
 
         render(contentType: 'text/json') {
             [
