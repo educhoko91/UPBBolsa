@@ -8,7 +8,6 @@
 		<title><g:message code="default.show.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#show-broker" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
@@ -25,7 +24,7 @@
 
                 <g:if test="${brokerInstance?.user?.username}">
                     <li class="fieldcontain">
-                        <span id="username-label" class="property-label"><g:message code="broker.user.username.label" default="Email: " /></span>
+                        <span id="username-label" class="property-label"><g:message code="broker.user.username.label" default="Usuario: " /></span>
 
                         <span class="property-value" aria-labelledby="username-label"><g:fieldValue bean="${brokerInstance}" field="user.username"/></span>
 
@@ -34,7 +33,7 @@
 
                 <g:if test="${brokerInstance?.user?.fullname}">
                     <li class="fieldcontain">
-                        <span id="userfullname-label" class="property-label"><g:message code="broker.user.fullname.label" default="Fullname: " /></span>
+                        <span id="userfullname-label" class="property-label"><g:message code="broker.user.fullname.label" default="Nombre: " /></span>
 
                         <span class="property-value" aria-labelledby="userfullname-label"><g:fieldValue bean="${brokerInstance}" field="user.fullname"/></span>
 
@@ -43,20 +42,21 @@
 
 				<g:if test="${brokerInstance?.userslimit}">
 				<li class="fieldcontain">
-					<span id="userslimit-label" class="property-label"><g:message code="broker.userslimit.label" default="Userslimit: " /></span>
+					<span id="userslimit-label" class="property-label"><g:message code="broker.userslimit.label" default="Limite de Usuarios: " /></span>
 					
 						<span class="property-value" aria-labelledby="userslimit-label"><g:fieldValue bean="${brokerInstance}" field="userslimit"/></span>
 					
 				</li>
 				</g:if>
+                <g:if test="${brokerInstance?.users}">
+                    <li class="fieldcontain">
+                        <span id="users-label" class="property-label"><g:message code="broker.userslimit.label" default="Usuarios: " /></span>
+
+                        <span class="property-value" aria-labelledby="users-label"><g:fieldValue bean="${brokerInstance}" field="users.username"/></span>
+                    </li>
+                </g:if>
 			
 			</ol>
-			<g:form>
-				<fieldset class="buttons">
-					<g:hiddenField name="id" value="${brokerInstance?.id}" />
-					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset>
-			</g:form>
 		</div>
 	</body>
 </html>

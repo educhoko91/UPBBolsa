@@ -60,7 +60,7 @@ class ConfigSisController {
 
 
     private def clearDatabase() {
-        if(Transacciones.count()>0) {
+       /* if(Transacciones.count()>0) {
             def transacciones = Transacciones.findAll();
             Transacciones.deleteAll(transacciones);
         }
@@ -95,7 +95,7 @@ class ConfigSisController {
             def brokers = Broker.findAll()
             Broker.deleteAll(brokers);
             
-        }
+        }*/
         /*if(UserRole.count()>0) {
             def userRoles = UserRole.findAllWhere([role: "ROLE_BROK"]);
             UserRole.removeAll(userRoles);

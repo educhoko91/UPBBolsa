@@ -7,7 +7,7 @@ import grails.converters.*
 class CajeroController {
 
     def index() {
-        render view: 'Habiltaciones', params: params
+        render (view: "habiltaciones.gsp", params: params)
     }
 
 
@@ -30,7 +30,7 @@ class CajeroController {
             habilitado.capital += Double.parseDouble(VariablesSistema.findByNombre('capInicio').getValue())
             habilitado.save()
         }
-        render view: "Habiltaciones.gsp"
+        render view: "habiltaciones.gsp"
     }
 
     def ajaxUsers = {

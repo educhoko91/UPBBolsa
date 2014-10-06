@@ -5,7 +5,7 @@
   Time: 12:18 AM
 --%>
 
-<%@ page import="edu.upb.upbBolsa.DatoSerie" contentType="text/html;charset=UTF-8" %>
+<%@ page import="upbbolsa.SyncEngineService; edu.upb.upbBolsa.DatoSerie" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta name="layout" content="upbolsa"/>
@@ -46,6 +46,15 @@
 
 
 <div id="container"></div>
+
+<div>
+    <span id="title" style="font-size: 24;">${lastNoticiaData.title}</span>
+    <br />
+    <br />
+
+    <span id="contenido">${lastNoticiaData.descripcion}</span>
+</div>
+
 </body>
 <g:javascript>
 
@@ -82,6 +91,19 @@ $(document).ready(function() {
                         }
                         inter = data.inter;
                         //inter = 10000;
+                    });
+
+                    $.getJSON("${createLink(controller: 'noticia', action: 'getNoticiasBySerieAndPeriod')}",{'serieId':${companie.serie.id}}, function(data){
+                        console.log('data',data);
+                        if(data.change){
+                            if(data.title!=""){
+                                $('#title').text(data.title);
+
+                            }
+                            if(data.contenido!=""){
+                                $('#contenido').text(data.contenido);
+                            }
+                        }
                     });
 
                 }, inter);

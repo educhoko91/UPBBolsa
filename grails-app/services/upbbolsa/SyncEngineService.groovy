@@ -65,4 +65,8 @@ class SyncEngineService {
     static def stop() {
         runnig = false;
     }
+
+    static def isRunning() {
+        return runnig;
+    }
 }
