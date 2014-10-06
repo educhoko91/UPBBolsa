@@ -30,6 +30,9 @@ $(document).ready(function() {
     Highcharts.setOptions({
 		global : {
 			useUTC : false
+		},
+        tooltip: {
+		    valueDecimals: 2
 		}
 	});
     <g:each in="${companies}" var="c">
