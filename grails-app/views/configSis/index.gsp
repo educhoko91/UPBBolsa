@@ -46,7 +46,8 @@
         <label>Costo Por Habilitacion (Bs.)</label>
         <g:textField name="${parametros[7].nombre}" value="${parametros[7].value}" class="text"></g:textField>
     </p>
-    <input type="submit" value="Guardar" class="button">
+    <input type="submit" value="Nueva Simulacion" class="button" name="nuevaSimulacion">
+    <input type="submit" value="Reiniciar" class="button" name="reiniciar">
 </g:form>
 </body>
 </html>

@@ -67,6 +67,17 @@ class CompanyController {
                 Workbook workbook = WorkbookFactory.create(file.inputStream)
 
                 List<Map> serieList = new ExcelImportService().columns(workbook, SERIES_DATA)
+                if(serieList.size()==0) {
+                    SERIES_DATA = [
+                            sheet    : 'Hoja1',
+                            startRow : 0,
+                            columnMap: [
+                                    'A': 'period',
+                                    'B': 'price',
+                            ]
+                    ]
+                    serieList = new ExcelImportService().columns(workbook, SERIES_DATA);
+                }
                 if(VariablesSistema.findByNombre("cicloFin")==null) {
                     new VariablesSistema(nombre: 'cicloFin',value: serieList.size()).save(failOnError: true)
                 }
@@ -92,7 +103,7 @@ class CompanyController {
 
     }
 
-    private def calcTime(def period) {
+    public static def calcTime(def period) {
         def puntoInicial = Integer.parseInt(VariablesSistema.findByNombre("puntoInicial").value);
         def interTiempo = Integer.parseInt(VariablesSistema.findByNombre("interTiempo").value);
         def horaInicio = new Date().parse("HH:mm",VariablesSistema.findByNombre("horaInicio").value);

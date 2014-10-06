@@ -7,12 +7,14 @@ class SyncEngineService {
     def executorService;
     static int ciclo = -2;
     static Date sleepStart;
+    static runnig = false;
 
     def runEngine() {
         executorService.submit({
             try {
 
                 print "Engine Started";
+                runnig = true;
                 def fechaInicio = VariablesSistema.findByNombre("fechaInicio");
                 def horaInicio = VariablesSistema.findByNombre("horaInicio");
                 def cicloFin = VariablesSistema.findByNombre("cicloFin");
@@ -27,7 +29,7 @@ class SyncEngineService {
                 sleepStart = initDate;
                 sleep(initDate.getTime() - (new Date()).getTime());
                 ciclo = Integer.parseInt(puntoInicial.value) - 1;
-                while (true) {
+                while (runnig) {
                     print "Runnig Engine"
                     if (ciclo == Integer.parseInt(cicloFin.value)) {
                         break;
@@ -40,7 +42,7 @@ class SyncEngineService {
                 ciclo = -2;
                 print "Engine Finished"
             } catch (Exception e) {
-                print "Some thing when wrong!!!!"
+                print "Something when wrong!!!!"
                 print e.toString();
             }
         } as GroovyCallable)
@@ -59,5 +61,8 @@ class SyncEngineService {
             return (new Date().getTime())-(sleepStart.getTime());
         else
             return (sleepStart.getTime())-(new Date().getTime())+20;
+    }
+    static def stop() {
+        runnig = false;
     }
 }
