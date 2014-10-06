@@ -12,71 +12,55 @@ class TransaccionesController {
     def dataSource
     def index() {
         render view: 'transacciones'
-
     }
 
     def compra(){
         User user = springSecurityService.currentUser
         [user:user]
-
     }
 
     def listDetail(String company) {
         Company companyInstance = Company.findByName(company);
         print(companyInstance)
         Serie serie = Serie.findByCompany(companyInstance)
-
-            DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
-            if(!(datoserieInstance instanceof Null)){
-                print(datoserieInstance)
-                BigDecimal precio = datoserieInstance.price;
-                precioGlobal = precio.toDouble();
-                render(contentType: 'text/json'){
-                    [
-                            'precio' : precio,
-                    ]
-
-                }
-            } else{
-                redirect(controller: "company", action: "create", params: params)
-            }
-
-
-
- }
-
-
+        DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
+        if(!(datoserieInstance instanceof Null)){
+            print(datoserieInstance)
+            BigDecimal precio = datoserieInstance.price;
+            precioGlobal = precio.toDouble();
+            render(contentType: 'text/json'){['precio' : precio,]}
+        } else{
+            redirect(controller: "company", action: "create", params: params)
+        }
+    }
 
     def comprar() {
-
         print(precioGlobal)
-         User user = springSecurityService.currentUser;
-         def trans = new Transacciones();
+        User user = springSecurityService.currentUser;
+        def trans = new Transacciones();
         // trans.id = id;
-         trans.usuario = user;
-         trans.broker = null;
-         trans.empresa = Company.findByName(params.empresas);
-         trans.montounitario = precioGlobal;
-         trans.montototal = precioGlobal*Double.parseDouble(params.cantidadAcciones);
-         trans.periodo=SyncEngineService.ciclo as int;
-         trans.tipo = "compra";
-         trans.cantidadacciones = params.cantidadAcciones as int;
+        trans.usuario = user;
+        trans.broker = null;
+        trans.empresa = Company.findByName(params.empresas);
+        trans.montounitario = precioGlobal;
+        trans.montototal = precioGlobal*Double.parseDouble(params.cantidadAcciones);
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "compra";
+        trans.cantidadacciones = params.cantidadAcciones as int;
         user.capital -= trans.montototal;
-         if(!trans.save() && !user.save()){
-
+        if(!trans.save() && !user.save()){
              render "NO SE PUDO REALIZAR LA COMPRA"
-         }else{
+        }else{
              render "compra exitosa"
-         }
-
         }
+    }
 
     def venta(){
         User user = springSecurityService.currentUser
         int numeroSerie = SyncEngineService.ciclo
-
         [user: user, precio: 0]
     }
+
     def actualizarValores(String nombre){
         print("Valor company")
         print(nombre)
@@ -87,18 +71,10 @@ class TransaccionesController {
         DatoSerie datoSerie = DatoSerie.findByPeriodAndSerie(cicloSerie, serieEmpresa)
         BigDecimal precio = datoSerie.price
         precioGlobal = precio.toDouble()
-
-
-        render(contentType: 'text/json') {
-            [
-                'precio'  : precio,
-            ]
-        }
-
+        render(contentType: 'text/json') {['precio'  : precio,]}
     }
 
     def ventaAccion(){
-
         Company empresa = Company.findByName(params.empresa)
         User usuario = springSecurityService.currentUser
         int numeroAcciones = 0
@@ -132,5 +108,91 @@ class TransaccionesController {
         User user = springSecurityService.currentUser;
         Transacciones [] trans = Transacciones.findAllByUsuario(user);
         [transacciones : trans, user: user]
+    }
+
+    def brokerMove(){
+        if(params.select_user != '' && params.select_company != '' && Integer.parseInt(params.quantity_capital) > 0 && params.quantity_capital != null) {
+            if (params.select_option == 'Comprar') {
+                redirect(controller: 'transacciones', action: 'brokerComprar', params: params)
+            } else if (params.select_option == 'Vender') {
+                redirect(controller: 'transacciones', action: 'brokerVender', params: params)
+            }
+        } else {
+            redirect(controller: 'brokerFunctions', action: 'adminUsers', params: params)
+        }
+    }
+
+    def brokerComprar(){
+        def trans = new Transacciones();
+        User broker = springSecurityService.currentUser;
+        trans.usuario = User.findByUsername(params.select_user)
+        trans.broker = Broker.findByUser(broker)
+        trans.empresa = Company.findByName(params.select_company)
+
+        def company_selected = Company.findByName(params.select_company)
+        def serie_selected = Serie.findByCompany(company_selected)
+        def db = new Sql(dataSource)
+        int val = SyncEngineService.ciclo as int;
+        int val2 = serie_selected.id as int;
+        def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
+        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8,String.valueOf(result).length()-2))
+
+        trans.montounitario = trueValueOfPrice;
+        trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "compra";
+        trans.cantidadacciones = params.quantity_capital as int;
+        def user = User.findByUsername(params.select_user)
+        if(user.capital < trans.montototal){
+            flash.message = "No posee suficiente Capital"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        user.capital -= trans.montototal
+        if(!trans.save() && !user.save()){
+            flash.message = "Compra Fallida"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }else{
+            flash.message = "Compra Exitosa"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }
+    }
+
+    def brokerVender(){
+        def trans = new Transacciones();
+        User broker = springSecurityService.currentUser;
+        trans.usuario = User.findByUsername(params.select_user)
+        trans.broker = Broker.findByUser(broker)
+        trans.empresa = Company.findByName(params.select_company)
+
+        def company_selected = Company.findByName(params.select_company)
+        def serie_selected = Serie.findByCompany(company_selected)
+        def db = new Sql(dataSource)
+        int val = SyncEngineService.ciclo as int;
+        int val2 = serie_selected.id as int;
+        def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
+        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8,String.valueOf(result).length()-2))
+
+        trans.montounitario = trueValueOfPrice;
+        trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "venta";
+        trans.cantidadacciones = params.quantity_capital as int;
+        def user = User.findByUsername(params.select_user)
+        if(user.capital < trans.cantidadacciones){
+            flash.message = "No posee suficiente Capital"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        user.capital += trans.montototal
+        if(!trans.save() && !user.save()){
+            render "Venta Fallida"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }else{
+            render "Venta Exitosa"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+
+        }
+
     }
 }

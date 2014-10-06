@@ -17,7 +17,18 @@ class BrokerFunctionsController {
     }
 
     def adminUsers(){
-
+        User user = springSecurityService.currentUser
+        Broker broker = Broker.findByUser(user);
+        ArrayList <String> list_users = new ArrayList<String>()
+        for (User i:broker.users){
+            if(i.capital > 0){
+                list_users.add(i.username)
+            }
+        }
+        params.broker_users_available = list_users
+        params.companies_availables = Company.getAll().name
+        params.broker_all_users = broker.users
+        render view: 'adminUsers.gsp'
     }
 
     def messageToUsers(){
