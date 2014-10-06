@@ -84,6 +84,7 @@ $(document).ready(function() {
                         inter = data.inter;
                         //inter = 10000;
                     });
+                    console.log('noticias',${noticias});
 
                 }, inter);
             }
