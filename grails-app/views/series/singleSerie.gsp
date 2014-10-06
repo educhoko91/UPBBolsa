@@ -15,12 +15,35 @@
 <h1>${companie.name} (${companie.code})</h1>
 
 <div>
-   <h3>Mean: </h3>
-    <h4 id="mean">${stats.mean}</h4>
-    <h3>Min: </h3>
-    <h4 id="min">${stats.min}</h4>
-    <h3>Max: </h3>
-    <h4 id="max">${stats.max}</h4>
+    <h2>
+    <table>
+        <tr>
+            <td>
+                Promedio:
+            </td>
+            <td style = "padding-left: 20" id="mean">
+                 ${formatNumber(number: stats.mean, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Min:
+            </td>
+            <td style = "padding-left: 20" id="min">
+                ${formatNumber(number: stats.min, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Max:
+            </td>
+            <td style = "padding-left: 20" id="max">
+                ${formatNumber(number: stats.max, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+
+    </table>
+    </h2>
 </div>
 
 
@@ -95,6 +118,10 @@ function parseTime(time) {
     var date = new Date();
     date.setHours(parts[0],parts[1],parts[2]);
     return date.getTime();
+}
+
+function updateStats(stats) {
+    $("")
 }
 
 </g:javascript>

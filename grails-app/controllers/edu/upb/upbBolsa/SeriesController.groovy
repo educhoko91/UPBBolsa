@@ -106,7 +106,7 @@ class SeriesController {
         def serie = company.serie.datos;
 
         double sum = 0;
-        double min = 0;
+        double min = 99999999;
         double max = 0;
         int calcCiclo = 0
 
