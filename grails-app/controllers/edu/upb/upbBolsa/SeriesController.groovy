@@ -55,6 +55,7 @@ class SeriesController {
                         'time'  : datos.time,
                         'price' : datos.price,
                         'inter' : SyncEngineService.getInter(),
+                        'stats' : calcStatsData(id),
                         'succes': true
 
                 ]
@@ -95,8 +96,34 @@ class SeriesController {
 
             //def charsData = charsData(companies);
             //[compTable: compTable, companies: companies, charsData:charsData];
-            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter()];
+            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter(), stats: calcStatsData(id)];
         }
+    }
+
+    private def calcStatsData(long id) {
+       // Load Data
+        def company = Company.findById(id);
+        def serie = company.serie.datos;
+
+        double sum = 0;
+        double min = 0;
+        double max = 0;
+        int calcCiclo = 0
+
+        for(def s: serie) {
+            if(s.period < SyncEngineService.getCiclo()){
+                calcCiclo = SyncEngineService.getCiclo();
+                sum += s.price;
+                if(s.price > max)
+                    max = s.price;
+                if(s.price < min)
+                    min = s.price;
+            }
+        }
+
+        double mean = sum/calcCiclo;
+        return [mean: mean, min: min, max: max];
+
     }
 
 
