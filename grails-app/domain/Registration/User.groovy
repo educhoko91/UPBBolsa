@@ -7,11 +7,13 @@ class User {
 	transient springSecurityService
 
 	String username
+    String email
 	String password
     String fullname
     String verify_password
     Broker broker
     double capital
+    String mensaje
 	boolean enabled
 	boolean accountExpired
 	boolean accountLocked
@@ -27,6 +29,8 @@ class User {
 		password blank: false
         fullname blank: false, unique: true
         verify_password blank: false
+        broker nullable: true
+        mensaje nullable: true
 	}
 
     static transients = ['verify_password']

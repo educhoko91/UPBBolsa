@@ -29,21 +29,19 @@ class CompanyController {
         }catch (DataIntegrityViolationException e){
             print "no se pudo borrar"
         }
-
-
         redirect(action: "create", params: params)
     }
 
     def save(){
-        print "entro";
+//        print "entro";
         def comp  = new Company(params);
-        print params.file.getOriginalFilename();
-        print comp.name
-        print comp.code
+//        print params.file.getOriginalFilename();
+//        print comp.name
+//        print comp.code
         def serie = new Serie()
         serie.name = params.file.getOriginalFilename();
         comp.serie = serie;
-        print comp.validate();
+//        print comp.validate();
         if(comp.validate()) {
             print "paso primer if"
 
@@ -78,7 +76,7 @@ class CompanyController {
                     datos.period = s.period
                     datos.price = s.price
                     datos.time = calcTime(s.period);
-                    datos.save()
+                    datos.save(failOnError: true);
                 }
 
             }

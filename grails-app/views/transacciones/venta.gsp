@@ -14,7 +14,7 @@
 
 <body>
     <div class="info-venta">
-        Dinero en mi cuenta: 200
+        Dinero en mi cuenta: ${user.capital}
     </div>
     <div class="data-venta">
         <span>Empresa:</span> <g:select name="empresa" from="${edu.upb.upbBolsa.Company.findAll().name}">Empresa</g:select>

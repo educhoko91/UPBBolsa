@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="my_money">
-        <span class="">Dinero en mi cuenta: 400444$$$</span>
+        <span class="">Dinero en mi cuenta: </span>
     </div>
     <div class="info-trans">
 

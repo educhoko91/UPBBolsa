@@ -2,6 +2,8 @@ package edu.upb.upbBolsa
 
 import upbbolsa.SyncEngineService
 
+import java.text.NumberFormat
+
 class SeriesController {
 
     def id = 0;
@@ -20,7 +22,8 @@ class SeriesController {
                 if (newRow) {
                     compTable += "<tr>";
                 }
-                compTable += "<td> ${c.name} (${c.code}) <br/> <div id=\"container${c.serie.id}\" style=\"width:300px\"></div> </td>";
+                String link = "<a href=\"${createLink(action: "singleSerie",id: c.id)}\">${c.name} (${c.code})</a>"
+                compTable += "<td> ${link} <br/> <div id=\"container${c.serie.id}\" style=\"width:300px\"></div> </td>";
                 if (!newRow) {
                     compTable += "</tr>";
                 }
@@ -73,6 +76,27 @@ class SeriesController {
 
     def waitingStart() {
         ['time':SyncEngineService.getInter()];
+    }
+
+    def singleSerie(long id) {
+        if (SyncEngineService.getCiclo()==-2) {
+            redirect(action: "noConfig");
+        } else if (SyncEngineService.getCiclo()==-1) {
+            redirect(action: "waitingStart");
+        } else {
+            def companie = Company.findById(id);
+
+
+            def ciclo = -1;
+            if (SyncEngineService.getCiclo() != null) {
+                print("ciclo =" + ciclo);
+                ciclo = SyncEngineService.getCiclo();
+            }
+
+            //def charsData = charsData(companies);
+            //[compTable: compTable, companies: companies, charsData:charsData];
+            [companie: companie, ciclo: ciclo, inter: SyncEngineService.getInter()];
+        }
     }
 
 

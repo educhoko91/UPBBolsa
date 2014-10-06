@@ -1,8 +1,10 @@
 package edu.upb.upbBolsa
 
+import Registration.User
+
 class Transacciones {
     int id
-//    Usuario usuario
+    User usuario
     Broker broker
     Company empresa
     int montounitario

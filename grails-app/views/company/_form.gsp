@@ -10,7 +10,7 @@
         <g:message code="company.code.label" default="Code"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:textField name="code" maxlength="50" required="" value="${companyInstance?.name}" class="text"/>
+    <g:textField name="code" maxlength="50" required="" value="${companyInstance?.code}" class="text"/>
 
     <label for="file"><g:message code="company.excelFile.label" default="Excel File" /></label>
     <input type="file" name="file" id="file" />

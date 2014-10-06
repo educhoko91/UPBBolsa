@@ -13,11 +13,11 @@ class BootStrap {
         def brokeRole = Role.findByAuthority('ROLE_BROK') ?: new Role(authority: 'ROLE_BROK').save(failOnError: true)
 
 
-        def adminUser = User.findByUsername('admin@hotmail.com') ?: new User( username: 'admin@hotmail.com', password: 'admin', fullname: 'admin@mail.com', enabled: true).save(failOnError: true)
-        def userUser = User.findByUsername('user@hotmail.com') ?: new User( username: 'user@hotmail.com', password: 'user', fullname: 'user@mail.com', enabled: true).save(failOnError: true)
-        def cajeroUser = User.findByUsername('cajero@hotmail.com') ?: new User( username: 'cajero@hotmail.com', password: 'cajero', fullname: 'Cajero Perez', enabled: true).save(failOnError: true)
-        def cajero2User = User.findByUsername('cajero2@hotmail.com') ?: new User( username: 'cajero2@hotmail.com', password: 'cajero2', fullname: 'cajero2@mail.com', enabled: true).save(failOnError: true)
-        def cajero3User = User.findByUsername('cajero3@hotmail.com') ?: new User( username: 'cajero3@hotmail.com', password: 'cajero3', fullname: 'cajero3@mail.com', enabled: true).save(failOnError: true)
+        def adminUser = User.findByUsername('admin@hotmail.com') ?: new User( username: 'admin@hotmail.com', email: 'user@hotmail.com', password: 'admin', fullname: 'admin@mail.com', enabled: true, 'capital':0, 'broker':null, mensaje: null).save(failOnError: true)
+        def userUser = User.findByUsername('user@hotmail.com') ?: new User( username: 'user@hotmail.com', email: 'user@hotmail.com', password: 'user', fullname: 'user@mail.com', enabled: true, 'capital':0, 'broker':null, mensaje: null).save(failOnError: true)
+        def cajeroUser = User.findByUsername('cajero@hotmail.com') ?: new User( username: 'cajero@hotmail.com', email: 'user@hotmail.com',password: 'cajero', fullname: 'Cajero Perez', enabled: true, 'capital':0, 'broker':null, mensaje: null).save(failOnError: true)
+        def cajero2User = User.findByUsername('cajero2@hotmail.com') ?: new User( username: 'cajero2@hotmail.com',email: 'user@hotmail.com', password: 'cajero2', fullname: 'cajero2@mail.com', enabled: true, 'capital':0, 'broker':null, mensaje: null).save(failOnError: true)
+        def cajero3User = User.findByUsername('cajero3@hotmail.com') ?: new User( username: 'cajero3@hotmail.com', email: 'user@hotmail.com',password: 'cajero3', fullname: 'cajero3@mail.com', enabled: true, 'capital':0, 'broker':null, mensaje: null).save(failOnError: true)
 
         if (!adminUser.authorities.contains(adminRole)) {
             UserRole.create(adminUser, adminRole)  }
