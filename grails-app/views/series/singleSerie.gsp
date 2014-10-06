@@ -16,11 +16,11 @@
 
 <div>
    <h3>Mean: </h3>
-    <h4 id="mean"></h4>
+    <h4 id="mean">${stats.mean}</h4>
     <h3>Min: </h3>
-    <h4 id="min"></h4>
+    <h4 id="min">${stats.min}</h4>
     <h3>Max: </h3>
-    <h4 id="max"></h4>
+    <h4 id="max">${stats.max}</h4>
 </div>
 
 
