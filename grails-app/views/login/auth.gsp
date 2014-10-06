@@ -50,8 +50,10 @@
                         <g:form class="cssform" url="[controller: 'login', action: 'save']" >
                             <h2>Registrarse</h2>
                             <p>
-                                <label for="username" class="text">Email</label>
+                                <label for="username" class="text">Usuario</label>
                                 <g:textField name="username" value="${user?.username}" class="text"/>
+                                <label for="email" class="text">Email</label>
+                                <g:textField name="email" value="${user?.email}" class="text"/>
                                 <label for="fullname">Nombre y apellido</label>
                                 <g:textField name="fullname" value="${user?.fullname}" class="text"/>
                                 <label for="password">Password</label>
