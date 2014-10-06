@@ -42,6 +42,26 @@ class TransaccionesController {
 
     def venta(){
         User user = springSecurityService.currentUser
-        [user: user]
+        int numeroSerie = SyncEngineService.ciclo
+
+        [user: user, precio: 0]
+    }
+    def actualizarValores(String nombre){
+        print("Valor company")
+        print(nombre)
+        Company company = Company.findByName(nombre)
+        int ciclo = SyncEngineService.ciclo
+        BigInteger cicloSerie = new BigInteger(ciclo+"")
+        Serie serieEmpresa = company.serie
+        DatoSerie datoSerie = DatoSerie.findByPeriodAndSerie(cicloSerie, serieEmpresa)
+        BigDecimal precio = datoSerie.price
+
+
+        render(contentType: 'text/json') {
+            [
+                'precio'  : precio,
+            ]
+        }
+
     }
 }

@@ -13,6 +13,40 @@
 </head>
 <body>
 <h1>${companie.name} (${companie.code})</h1>
+
+<div>
+    <h2>
+    <table>
+        <tr>
+            <td>
+                Promedio:
+            </td>
+            <td style = "padding-left: 20" id="mean">
+                 ${formatNumber(number: stats.mean, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Min:
+            </td>
+            <td style = "padding-left: 20" id="min">
+                ${formatNumber(number: stats.min, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Max:
+            </td>
+            <td style = "padding-left: 20" id="max">
+                ${formatNumber(number: stats.max, format: "##.00", locale: Locale.US)}
+            </td>
+        </tr>
+
+    </table>
+    </h2>
+</div>
+
+
 <div id="container"></div>
 </body>
 <g:javascript>
@@ -21,6 +55,9 @@ $(document).ready(function() {
     Highcharts.setOptions({
 		global : {
 			useUTC : false
+		},
+		tooltip: {
+		    valueDecimals: 2
 		}
 	});
     var chart =  $('#container').highcharts('StockChart',{
@@ -81,6 +118,10 @@ function parseTime(time) {
     var date = new Date();
     date.setHours(parts[0],parts[1],parts[2]);
     return date.getTime();
+}
+
+function updateStats(stats) {
+    $("")
 }
 
 </g:javascript>

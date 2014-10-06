@@ -12,9 +12,10 @@
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css/theme', file: 'style.css')}" media="screen" title="style (screen)" />
 
     <g:javascript library="jquery-ui" />
-    <script type="text/javascript" src="${resource(dir:'js/highstock', file: 'highstock.js')}"></script>
+
     <g:layoutHead/>
     <r:layoutResources />
+    <script type="text/javascript" src="${resource(dir:'js/highstock', file: 'highstock.js')}"></script>
 
 </head>
 
@@ -42,15 +43,17 @@
 
 <div class="wrap">
     <div id="right">
-        <h1>Menu Basico</h1>
-        <ul>
-            <li><a href="">Series</a></li>
-            <li><a href="">Noticias</a></li>
-            <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
-            <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
-            <li><g:link controller="transacciones" action="index">Ver</g:link></li>
-            <br/>
-        </ul>
+        <sec:ifLoggedIn>
+            <h1>Menu Basico</h1>
+            <ul>
+                <li><a href="">Series</a></li>
+                <li><a href="">Noticias</a></li>
+                <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
+                <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
+                <li><g:link controller="transacciones" action="index">Ver</g:link></li>
+                <br/>
+            </ul>
+        </sec:ifLoggedIn>
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <h1>Menu Admin</h1>
         <ul>
