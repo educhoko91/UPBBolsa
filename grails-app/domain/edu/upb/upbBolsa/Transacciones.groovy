@@ -14,6 +14,7 @@ class Transacciones {
     int cantidadacciones
     static constraints = {
         usuario(nullable: false, blank: false)
+        broker(nullable: true)
 
     }
 }
