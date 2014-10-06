@@ -3,9 +3,11 @@ package edu.upb.upbBolsa
 import Registration.User
 import upbbolsa.SyncEngineService
 
+import javax.validation.constraints.Null
+
 class TransaccionesController {
 
-    static allowedMethods = [comprar: "POST", listDetail: "GET"]
+
 
     def springSecurityService
     def index() {
@@ -19,25 +21,37 @@ class TransaccionesController {
 
     }
 
-    def listDetail(String company){
+    def listDetail(String company) {
         Company companyInstance = Company.findByName(company);
         print(companyInstance)
         Serie serie = Serie.findByCompany(companyInstance)
-        DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo()+""),serie);
-        print(datoserieInstance)
-        [datosserie:datoserieInstance]
-    }
+
+            DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
+            if(!(datoserieInstance instanceof Null)){
+                print(datoserieInstance)
+                BigDecimal precio = datoserieInstance.price;
+
+                render(contentType: 'text/json'){
+                    [
+                            'precio' : precio,
+                    ]
+
+                }
+            } else{
+                redirect(controller: "company", action: "create", params: params)
+            }
+
+
+
+ }
+
+
 
     def comprar() {
-        def transaccionInstance = new Transacciones(params)
-
-        if (!transaccionInstance.save(flush: true)) {
-            render(view: "compra", model: [transaccionInstance: transaccionInstance])
-            return
-        } else {
-
-
-            }
+         Transacciones trans = new Transacciones();
+         trans.cantidadacciones = params.cantidadAcciones;
+         trans.empresa = params.empresas;
+         trans.
         }
 
     def venta(){
@@ -64,4 +78,5 @@ class TransaccionesController {
         }
 
     }
+
 }
