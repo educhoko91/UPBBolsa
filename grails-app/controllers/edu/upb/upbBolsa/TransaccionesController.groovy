@@ -40,18 +40,31 @@ class TransaccionesController {
     }
 
     def ventaAccion(){
-        Transacciones transaccion = new Transacciones()
+        def transaccion = new Transacciones()
         Company empresa = Company.findByName(params.empresa)
         User usuario = springSecurityService.currentUser
+        int numeroAcciones = 0
+        for(Transacciones trans : Transacciones.findAllByUsuario(usuario)){
+            numeroAcciones += trans.cantidadacciones
+        }
+//        if(Integer.parseInt(params.cantidad) > numeroAcciones){
+//            print "No tiene suficientes acciones"
+//            flash.message = "No tiene suficientes acciones"
+//            return
+//        }
+        print "pase el if"
         transaccion.usuario = usuario
         transaccion.cantidadacciones = Integer.parseInt(params.cantidad)
         transaccion.montounitario = precioGlobal
-        transaccion.montototal = precioGlobal * Integer.parseInt(params.cantidad)
-        transaccion.periodo = SyncEngineService.ciclo
-        transaccion.tipo = "Venta"
+        transaccion.montototal = precioGlobal * Double.parseDouble(params.cantidad)
+        transaccion.periodo = SyncEngineService.ciclo as int
+        transaccion.tipo = "venta"
         transaccion.empresa = empresa
         transaccion.broker = null
-        transaccion.save()
+        if(!transaccion.save()){
+            render "Han ocurrido errores"
+        }
+
 //        render(view: 'venta',  user: usuario, precio: 0)
     }
 }
