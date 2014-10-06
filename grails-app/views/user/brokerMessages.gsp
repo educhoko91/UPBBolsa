@@ -23,16 +23,30 @@
 </head>
 <body>
 <div>
-    <p>
-        <h2>Mandar solicitud al Broker</h2>
-        <g:form class="cssform" url="[controller: 'user', action: 'sendBrokerMessages']" >
-            <label for="search_broker">
-                <g:message default="Buscar Broker" />
-            </label>
-            <g:field id="search_broker" name="search_broker" type="text"/>
-            <g:submitButton class="button" name="submitButton" value="Mandar Solicitud"/>
-        </g:form>
-    </p>
+    <table>
+        <tr>
+            <td>
+                <p>
+                    <h2>Mandar solicitud al Broker</h2>
+                    <g:form class="cssform" url="[controller: 'user', action: 'sendBrokerMessages']" >
+                        <label for="search_broker">
+                            <g:message default="Buscar Broker" />
+                        </label>
+                        <g:field id="search_broker" name="search_broker" type="text"/>
+                        <g:submitButton class="button" name="submitButton" value="Mandar Solicitud"/>
+                    </g:form>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    <h3>Mensaje del Broker</h3>
+                    <h5>${params.params_message_sent}</h5>
+                </p>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
