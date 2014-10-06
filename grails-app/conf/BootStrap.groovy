@@ -36,7 +36,7 @@ class BootStrap {
 
         if(!VariablesSistema.count()) {
 
-            VariablesSistema.findByNombre('fechaInicio') ?:new VariablesSistema(nombre: 'fechaInicio',value: '01/01/2014').save(failOnError: true);
+            VariablesSistema.findByNombre('fechaInicio') ?:new VariablesSistema(nombre: 'fechaInicio',value: new Date().toString()).save(failOnError: true);
             VariablesSistema.findByNombre('horaInicio') ?:new VariablesSistema(nombre: 'horaInicio',value: '00:00').save(failOnError: true);
             VariablesSistema.findByNombre('interTiempo') ?:new VariablesSistema(nombre: 'interTiempo',value: '60').save(failOnError: true);
             VariablesSistema.findByNombre('puntoInicial') ?:new VariablesSistema(nombre: 'puntoInicial',value: '0').save(failOnError: true);

@@ -21,7 +21,7 @@ environments {
     }
     test {
         dataSource {
-            dbCreate = "update"
+            dbCreate = "create-drop"
             url = "jdbc:mysql://localhost/UPBBolsaDB?useUnicode=yes&characterEncoding=UTF-8"
             username='UPBBolsaDBA'
             password="123456789"
@@ -30,7 +30,7 @@ environments {
     //Test 1
     production {
         dataSource {
-            dbCreate = "update"
+            dbCreate = "create-drop"
             url = "jdbc:mysql://localhost/UPBBolsaDB?useUnicode=yes&characterEncoding=UTF-8"
             username='UPBBolsaDBA'
             password="123456789"

@@ -13,6 +13,17 @@
 </head>
 <body>
 <h1>${companie.name} (${companie.code})</h1>
+
+<div>
+   <h3>Mean: </h3>
+    <h4 id="mean"></h4>
+    <h3>Min: </h3>
+    <h4 id="min"></h4>
+    <h3>Max: </h3>
+    <h4 id="max"></h4>
+</div>
+
+
 <div id="container"></div>
 </body>
 <g:javascript>
@@ -21,6 +32,9 @@ $(document).ready(function() {
     Highcharts.setOptions({
 		global : {
 			useUTC : false
+		},
+		tooltip: {
+		    valueDecimals: 2
 		}
 	});
     var chart =  $('#container').highcharts('StockChart',{
