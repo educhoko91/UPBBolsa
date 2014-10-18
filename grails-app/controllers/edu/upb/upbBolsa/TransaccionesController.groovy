@@ -102,12 +102,22 @@ class TransaccionesController {
         Company empresa = Company.findByName(params.empresa)
         User usuario = springSecurityService.currentUser
         int numeroAcciones = 0
+        if(params.empresa == "null"){
+            flash.message = "Seleccione una empresa"
+            redirect(controller: 'transacciones', action: 'venta')
+            return
+        } else if(Integer.parseInt(params.cantidad) < 0){
+            flash.message = "Debe vender mas de una accion"
+            redirect(controller: 'transacciones', action: 'venta')
+            return
+        }
         for(Transacciones trans : Transacciones.findAllByUsuario(usuario)){
             numeroAcciones += trans.cantidadacciones
         }
         if(Integer.parseInt(params.cantidad) > numeroAcciones){
             print "No tiene suficientes acciones"
             flash.message = "No tiene suficientes acciones"
+            redirect(controller: 'transacciones', action: 'venta')
             return
         }
         def trans = new Transacciones();
@@ -130,7 +140,24 @@ class TransaccionesController {
 
     def resumen(){
         User user = springSecurityService.currentUser;
+        Company [] companies = Company.findAll();
         Transacciones [] trans = Transacciones.findAllByUsuario(user);
-        [transacciones : trans, user: user]
+
+        Map empresaCantidad = new HashMap<String,Integer>()
+        for (Company c : companies ){
+            empresaCantidad.put(c.name,0)
+        }
+
+
+        for(Transacciones t : trans ){
+            String compName = t.empresa.name
+            if(t.tipo.equals("venta")) {
+                empresaCantidad.put(compName, empresaCantidad.get(compName) - t.cantidadacciones)
+            }else if(t.tipo.equals("compra")){
+                empresaCantidad.put(compName,empresaCantidad.get(compName) + t.cantidadacciones)
+            }
+
+        }
+        [transacciones : trans, user: user, companies: empresaCantidad]
     }
 }

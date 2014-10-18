@@ -50,7 +50,7 @@
                 <li><g:link controller="noticia" action="list">Noticias</g:link></li>
                 <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
                 <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
-                <li><g:link controller="transacciones" action="index">Ver</g:link></li>
+                <li><g:link controller="transacciones" action="resumen">Resumen</g:link></li>
                 <br/>
             </ul>
         </sec:ifLoggedIn>
