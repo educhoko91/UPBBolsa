@@ -19,6 +19,11 @@
                 });
             }
         }
+        var tiempoIntervalo = ${edu.upb.upbBolsa.VariablesSistema.findByNombre("interTiempo").value};
+        tiempoIntervalo = parseInt(tiempoIntervalo);
+        window.setInterval(function(){
+            updateValues()
+        },tiempoIntervalo*1000/3);
 
 
     </script>
