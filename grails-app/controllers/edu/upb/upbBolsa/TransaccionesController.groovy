@@ -3,6 +3,7 @@ package edu.upb.upbBolsa
 import Registration.User
 import groovy.sql.Sql
 import upbbolsa.SyncEngineService
+import java.text.DecimalFormat
 
 import javax.validation.constraints.Null
 
@@ -159,5 +160,154 @@ class TransaccionesController {
 
         }
         [transacciones : trans, user: user, companies: empresaCantidad]
+    }
+
+    def brokerMove(){
+        if(params.select_user != '' && params.select_company != '' && Integer.parseInt(params.quantity_capital) > 0 && params.quantity_capital != null) {
+            if (params.select_option == 'Comprar') {
+                redirect(controller: 'transacciones', action: 'brokerComprar', params: params)
+            } else if (params.select_option == 'Vender') {
+                redirect(controller: 'transacciones', action: 'brokerVender', params: params)
+            }
+        } else {
+            redirect(controller: 'brokerFunctions', action: 'adminUsers', params: params)
+        }
+    }
+
+    def brokerComprar(){
+        def trans = new Transacciones();
+        boolean needAccion = true;
+        User broker = springSecurityService.currentUser;
+        def user_selected = User.findByUsername(params.select_user)
+        trans.usuario = user_selected
+        trans.broker = Broker.findByUser(broker)
+        trans.empresa = Company.findByName(params.select_company)
+        def company_selected = Company.findByName(params.select_company)
+        for(Acciones ac : user_selected.acciones){
+            if (ac.company_ac == company_selected){
+                needAccion = false
+                break;
+            }
+        }
+
+        if (needAccion == true){
+            def nueva_ac = new Acciones()
+            nueva_ac.company_ac = company_selected
+            nueva_ac.user = user_selected
+            nueva_ac.cantidad_ac = (params.quantity_capital as int);
+            nueva_ac.save()
+        }
+        print(user_selected.acciones)
+
+        def serie_selected = Serie.findByCompany(company_selected)
+        def db = new Sql(dataSource)
+        int val = SyncEngineService.ciclo as int;
+        int val2 = serie_selected.id as int;
+        def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
+        if (String.valueOf(result) == null || String.valueOf(result) == "" || String.valueOf(result) == "[]"){
+            flash.message = "No se inicio la simulacion"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8, String.valueOf(result).length() - 2))
+
+        trans.montounitario = trueValueOfPrice;
+        DecimalFormat df = new DecimalFormat("0.00");
+        trans.montototal = df.format(trueValueOfPrice*Double.parseDouble(params.quantity_capital)) as double;
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "compra";
+        trans.cantidadacciones = params.quantity_capital as int;
+        def user = User.findByUsername(params.select_user)
+
+        def result2 = db.rows("SELECT value FROM variables_sistema WHERE nombre = 'costoTransfer';")
+        double costTrans = Double.parseDouble(String.valueOf(result2).substring(8, String.valueOf(result2).length() - 2))
+
+        if(user.capital < trans.montototal + costTrans){
+            flash.message = "No posee suficiente Capital"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        user.capital = user.capital - trans.montototal - costTrans
+
+        for(Acciones ac : user_selected.acciones){
+            if (ac.company_ac == company_selected){
+                ac.cantidad_ac = ac.cantidad_ac + (params.quantity_capital as int)
+                break;
+            }
+        }
+        if(!trans.save() && !user.save()){
+            flash.message = "Compra Fallida"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }else{
+            flash.message = "Compra Exitosa"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }
+    }
+
+
+
+
+
+    def brokerVender(){
+        def trans = new Transacciones();
+        User broker = springSecurityService.currentUser;
+        def user_selected = User.findByUsername(params.select_user)
+        trans.usuario = user_selected
+        trans.broker = Broker.findByUser(broker)
+        trans.empresa = Company.findByName(params.select_company)
+
+        def company_selected = Company.findByName(params.select_company)
+        def serie_selected = Serie.findByCompany(company_selected)
+        def db = new Sql(dataSource)
+        int val = SyncEngineService.ciclo as int;
+        int val2 = serie_selected.id as int;
+        def result = db.rows("SELECT price FROM dato_serie WHERE period = ? AND serie_id = ?;", [val,val2])
+        if (String.valueOf(result) == null || String.valueOf(result) == "" || String.valueOf(result) == "[]") {
+            flash.message = "No se inicio la simulacion"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+        double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8, String.valueOf(result).length() - 2))
+        trans.montounitario = trueValueOfPrice;
+        DecimalFormat df = new DecimalFormat("0.00");
+        trans.montototal = df.format(trueValueOfPrice*Double.parseDouble(params.quantity_capital)) as double;
+        trans.periodo=SyncEngineService.ciclo as int;
+        trans.tipo = "venta";
+        trans.cantidadacciones = params.quantity_capital as int;
+        def user = User.findByUsername(params.select_user)
+
+        def result2 = db.rows("SELECT value FROM variables_sistema WHERE nombre = 'costoTransfer';")
+        double costTrans = Double.parseDouble(String.valueOf(result2).substring(8, String.valueOf(result2).length() - 2))
+
+        if(user.capital < trans.cantidadacciones + costTrans){
+            flash.message = "No posee suficiente Capital"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+            return
+        }
+
+        for(Acciones ac : user_selected.acciones){
+            if (ac.company_ac == company_selected){
+                if (ac.cantidad_ac >= (params.quantity_capital as int)) {
+                    ac.cantidad_ac = ac.cantidad_ac - (params.quantity_capital as int)
+                    break;
+                }
+                else{
+                    flash.message = "No posee suficiente Acciones de esta empresa"
+                    redirect(controller: 'brokerFunctions', action: 'adminUsers')
+                    return
+                }
+            }
+        }
+
+        user.capital = user.capital + trans.montototal - costTrans
+        if(!trans.save() && !user.save()){
+            render "Venta Fallida"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+        }else{
+            render "Venta Exitosa"
+            redirect(controller: 'brokerFunctions', action: 'adminUsers')
+
+        }
+
     }
 }

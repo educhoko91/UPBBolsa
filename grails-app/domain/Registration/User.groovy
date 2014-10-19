@@ -1,11 +1,13 @@
 package Registration
 
+import edu.upb.upbBolsa.Acciones
 import edu.upb.upbBolsa.Broker
 
 class User {
 
 	transient springSecurityService
 
+    static hasMany = [acciones:Acciones]
 	String username
     String email
 	String password
