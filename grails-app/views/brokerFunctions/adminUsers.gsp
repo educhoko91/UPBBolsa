@@ -26,7 +26,7 @@
             <g:select id="select_option" name="select_option" from="${['Comprar','Vender']}"/>
             <label for="select_company" class="text">Empresa</label>
             <g:select id="select_company" name="select_company" from="${params.companies_availables}" noSelection="['':'-Escoge una empresa-']"/>
-            <label for="quantity_capital" class="text">Capital</label>
+            <label for="quantity_capital" class="text">Acciones</label>
             <g:field type="number" name="quantity_capital" id="quantity_capital" required="" value="0"/>
             </br></br>
             <g:submitButton class="button" name="submitButton" value="Realizar Transaccion"/>
