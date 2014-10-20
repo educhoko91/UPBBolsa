@@ -20,14 +20,6 @@
 <body>
 
 <h1>Series</h1>
-<g:submitButton name="Comprar Acciones" controller="transacciones" action="compra" style="right: 100px;position: absolute;background-color: red ;color: #ffffff;font-size: 30px">Comprar Acciones</g:submitButton>
-<br />
-<br />
-<br />
-<br />
-<br />
-<g:submitButton name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:submitButton>
-
 <table>
     <%=compTable%>
 </table>

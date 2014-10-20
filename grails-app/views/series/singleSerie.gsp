@@ -22,7 +22,19 @@
     <br />
     <br />
     <g:submitButton name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:submitButton>
-    <table>
+        <table>
+        <tr>
+            <td>
+                <h2>
+                Precio:
+                </h2>
+            </td>
+            <td style = "padding-left: 20">
+                <h2 id="price">
+                ${formatNumber(number: stats.price, format: "##.00", locale: Locale.US)}
+                </h2>
+            </td>
+        </tr>
         <tr>
             <td>
                 Promedio:
@@ -149,6 +161,7 @@ function parseTime(time) {
 }
 
 function updateStats(stats) {
+    $("#price").text(stats.price.toFixed(2));
     $("#mean").text(stats.mean.toFixed(2));
     $("#min").text(stats.min.toFixed(2));
     $("#max").text(stats.max.toFixed(2));

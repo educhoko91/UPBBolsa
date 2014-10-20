@@ -132,7 +132,8 @@ class SeriesController {
         double sum = 0;
         double min = 99999999;
         double max = 0;
-        int calcCiclo = 0
+        int calcCiclo = 0;
+        double price = 0.0;
 
         for(def s: serie) {
             if(s.period < SyncEngineService.getCiclo()){
@@ -143,10 +144,13 @@ class SeriesController {
                 if(s.price < min)
                     min = s.price;
             }
-        }
 
+            if(s.period == SyncEngineService.getCiclo()){
+                price = s.price;
+            }
+        }
         double mean = sum/calcCiclo;
-        return [mean: mean, min: min, max: max];
+        return [mean: mean, min: min, max: max, price:price];
 
     }
 
