@@ -76,8 +76,29 @@ class TransaccionesController {
     def venta(){
         User user = springSecurityService.currentUser
         int numeroSerie = SyncEngineService.ciclo
+        //sacamos solo las empresas de las cuales tiene acciones
+        Map empresaCantidad = new HashMap<String,Integer>()
+        Company [] companies = Company.findAll();
+        Transacciones [] trans = Transacciones.findAllByUsuario(user);
+        for (Company c : companies ){
+            empresaCantidad.put(c.name,0)
+        }
+        for(Transacciones t : trans ){
+            String compName = t.empresa.name
+            if(t.tipo.equals("venta")) {
+                empresaCantidad.put(compName, empresaCantidad.get(compName) - t.cantidadacciones)
+            }else if(t.tipo.equals("compra")){
+                empresaCantidad.put(compName,empresaCantidad.get(compName) + t.cantidadacciones)
+            }
+        }
+        for (Map.Entry<String, Integer> entry : empresaCantidad.entrySet())
+        {
+            if(entry.getValue() <= 0){
+                empresaCantidad.remove(entry.getKey())
+            }
+        }
 
-        [user: user, precio: 0]
+        [user: user, precio: 0, empresas:empresaCantidad]
     }
     def actualizarValores(String nombre){
         print("Valor company")
@@ -108,7 +129,7 @@ class TransaccionesController {
             flash.message = "Seleccione una empresa"
             redirect(controller: 'transacciones', action: 'venta')
             return
-        } else if(Integer.parseInt(params.cantidad) < 0){
+        } else if(Integer.parseInt(params.cantidad) <= 0){
             flash.message = "Debe vender mas de una accion"
             redirect(controller: 'transacciones', action: 'venta')
             return
