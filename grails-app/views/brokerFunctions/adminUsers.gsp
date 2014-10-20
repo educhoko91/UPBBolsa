@@ -38,7 +38,16 @@
             <td>
                 <table>
                     <g:each in="${params.broker_all_users}">
-                        <tr><td><h5>Usuario: ${it.username}</h5></td><td><h5>Capital: ${it.capital}</h5></td></tr>
+                        <tr>
+                            <td>
+                                <h5>Usuario: ${it.username}</h5></td><td><h5>Capital: <g:formatNumber number="${it.capital}" format="\$#.##"/></h5>
+                            </td>
+                                <g:each in="${it.acciones}">
+                                    <td>
+                                        <h5>Acciones ${it.company_ac.name} : ${it.cantidad_ac} </h5>
+                                    </td>
+                                </g:each>
+                        </tr>
                     </g:each>
                 </table>
             </td>
