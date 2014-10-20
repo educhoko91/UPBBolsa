@@ -103,10 +103,11 @@ class TransaccionesController {
         }
         user.capital -= trans.montototal;
          if(!trans.save() && !user.save()){
-
-             render "NO SE PUDO REALIZAR LA COMPRA"
+             flash.message = "Compra Fallida"
+             redirect(controller: 'transacciones', action: 'compra')
          }else{
-             render "compra exitosa"
+             flash.message = "Compra Exitosa"
+             redirect(controller: 'transacciones', action: 'compra')
          }
 
         }
@@ -137,11 +138,15 @@ class TransaccionesController {
                 empresaCantidad.put(compName,empresaCantidad.get(compName) + t.cantidadacciones)
             }
         }
+        ArrayList<String> aux = new ArrayList<String>();
         for (Map.Entry<String, Integer> entry : empresaCantidad.entrySet())
         {
             if(entry.getValue() <= 0){
-                empresaCantidad.remove(entry.getKey())
+                aux.add(entry.getKey());
             }
+        }
+        for (String s: aux){
+            empresaCantidad.remove(s);
         }
 
         [user: user, precio: 0, empresas:empresaCantidad]
@@ -214,9 +219,11 @@ class TransaccionesController {
         trans.cantidadacciones = params.cantidad as int;
         usuario.capital += trans.montototal;
         if(!trans.save() && !usuario.save()){
-            render "NO SE PUDO REALIZAR LA Venta"
+            flash.message = "Venta Fallida"
+            redirect(controller: 'transacciones', action: 'venta')
         }else{
-            render "venta exitosa"
+            flash.message = "Venta Exitosa"
+            redirect(controller: 'transacciones', action: 'venta')
         }
     }
 

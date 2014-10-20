@@ -15,13 +15,13 @@
 <h1>${companie.name} (${companie.code})</h1>
 
 <div>
-    <g:submitButton name="Comprar Acciones" controller="transacciones" action="compra" style="right: 100px;position: absolute;background-color: red ;color: #ffffff;font-size: 30px">Comprar Acciones</g:submitButton>
+    <g:link name="Comprar Acciones" controller="transacciones" action="compra" style="right: 100px;position: absolute;background-color: red ;color: #ffffff;font-size: 30px">Comprar Acciones</g:link>
     <br />
     <br />
     <br />
     <br />
     <br />
-    <g:submitButton name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:submitButton>
+    <g:link name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:link>
         <table>
         <tr>
             <td>
