@@ -69,7 +69,7 @@ class LoginController {
             u.enabled = true
             if (params.password == params.verify_password) {
                 if (!u.save()) {
-                    flash.message = 'Ya se encuentra registrado'
+                    flash.message = 'No se pudo registrar, revise haber llenado todos los campos correctamente'
                     redirect(controller: 'login', action: 'auth')
                     return [user: u]
                 } else {

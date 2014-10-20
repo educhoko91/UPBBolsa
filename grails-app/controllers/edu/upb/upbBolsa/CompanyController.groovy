@@ -43,14 +43,18 @@ class CompanyController {
         comp.serie = serie;
 //        print comp.validate();
         if(comp.validate()) {
-            print "paso primer if"
+            MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
+            CommonsMultipartFile file = (CommonsMultipartFile) mpr.getFile("file");
 
-            serie.save(flush:true);
+            try {
+                Workbook workbook = WorkbookFactory.create(file.inputStream)
+            } catch (Exception e){
+                flash.message = "No se ingreso ninguna serie, por favor ingrese una serie"
+                redirect(action: 'create')
+                return
+            }
 
-
-            if (comp.save(flush:true)) {
-                print "paso el if"
-
+            try {
                 Map SERIES_DATA = [
                         sheet    : 'Sheet1',
                         startRow : 0,
@@ -59,14 +63,24 @@ class CompanyController {
                                 'B': 'price',
                         ]
                 ]
-
-
-                MultipartHttpServletRequest mpr = (MultipartHttpServletRequest) request;
-                CommonsMultipartFile file = (CommonsMultipartFile) mpr.getFile("file");
-
-                Workbook workbook = WorkbookFactory.create(file.inputStream)
-
                 List<Map> serieList = new ExcelImportService().columns(workbook, SERIES_DATA)
+            }   catch (MissingPropertyException e1){
+                flash.message = 'El archivo excel no se encuentra en el formato establecido.'
+                redirect(action: 'create')
+                return
+            }
+            serie.save(flush:true);
+
+
+            if (comp.save(flush:true)) {
+                print "paso el if"
+
+
+
+
+
+
+
                 if(serieList.size()==0) {
                     SERIES_DATA = [
                             sheet    : 'Hoja1',

@@ -68,9 +68,10 @@
             </table>
 
         </p>
-        <g:link controller="simulation" action="start">Inicial Simulacion</g:link>
 
     </g:form>
+
+    <g:link name="Continuar" controller="noticia" action="create">Continuar</g:link>
 </div>
 </body>
 </html>

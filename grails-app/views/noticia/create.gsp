@@ -63,6 +63,7 @@
             </tbody>
         </table>
     </p>
+    <g:link controller="simulation" action="start">Inicial Simulacion</g:link>
 </div>
 </body>
 </html>

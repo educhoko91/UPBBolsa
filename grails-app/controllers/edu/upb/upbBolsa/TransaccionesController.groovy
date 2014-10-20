@@ -109,6 +109,14 @@ class TransaccionesController {
         }
 
     def venta(){
+
+        int ciclo = SyncEngineService.ciclo as int;
+        if(ciclo<0){
+            redirect(controller: 'Series', view:'waitingStart')
+            return
+
+        }
+
         User user = springSecurityService.currentUser
         int numeroSerie = SyncEngineService.ciclo
         //sacamos solo las empresas de las cuales tiene acciones
@@ -159,7 +167,18 @@ class TransaccionesController {
 
         Company empresa = Company.findByName(params.empresa)
         User usuario = springSecurityService.currentUser
-        int numeroAcciones = 0
+        Acciones [] ac_venta = Acciones.findAllByUser(usuario);
+        int numeroAcciones = 0;
+        for(Acciones ac_vent : ac_venta){
+            if(ac_vent.company_ac == empresa){
+                numeroAcciones =  ac_vent.cantidad_ac;
+                if(numeroAcciones > (Integer.parseInt(params.cantidad))) {
+                    ac_vent.cantidad_ac = ac_vent.cantidad_ac - (Integer.parseInt(params.cantidad));
+                }
+                break;
+            }
+        }
+
         if(params.empresa == "null"){
             flash.message = "Seleccione una empresa"
             redirect(controller: 'transacciones', action: 'venta')
@@ -168,10 +187,12 @@ class TransaccionesController {
             flash.message = "Debe vender mas de una accion"
             redirect(controller: 'transacciones', action: 'venta')
             return
+        } else if(numeroAcciones <= 0){
+            flash.message = "No tiene acciones de la empresa seleccionada"
+            redirect(controller: 'transacciones', action: 'venta')
+            return
         }
-        for(Transacciones trans : Transacciones.findAllByUsuario(usuario)){
-            numeroAcciones += trans.cantidadacciones
-        }
+
         if(Integer.parseInt(params.cantidad) > numeroAcciones){
             print "No tiene suficientes acciones"
             flash.message = "No tiene suficientes acciones"
@@ -270,7 +291,7 @@ class TransaccionesController {
 
         trans.montounitario = trueValueOfPrice;
         DecimalFormat df = new DecimalFormat("0.00");
-        trans.montototal = df.format(trueValueOfPrice*Double.parseDouble(params.quantity_capital)) as double;
+        trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
         trans.periodo=SyncEngineService.ciclo as int;
         trans.tipo = "compra";
         trans.cantidadacciones = params.quantity_capital as int;
@@ -327,7 +348,7 @@ class TransaccionesController {
         double trueValueOfPrice = Double.parseDouble(String.valueOf(result).substring(8, String.valueOf(result).length() - 2))
         trans.montounitario = trueValueOfPrice;
         DecimalFormat df = new DecimalFormat("0.00");
-        trans.montototal = df.format(trueValueOfPrice*Double.parseDouble(params.quantity_capital)) as double;
+        trans.montototal = trueValueOfPrice*Double.parseDouble(params.quantity_capital);
         trans.periodo=SyncEngineService.ciclo as int;
         trans.tipo = "venta";
         trans.cantidadacciones = params.quantity_capital as int;
