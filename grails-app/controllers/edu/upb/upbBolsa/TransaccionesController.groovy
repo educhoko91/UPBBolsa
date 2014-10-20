@@ -12,13 +12,21 @@ class TransaccionesController {
     def springSecurityService
     def dataSource
     def index() {
+
         render view: 'transacciones'
 
     }
 
     def compra(){
-        User user = springSecurityService.currentUser
-        [user:user]
+
+
+        int ciclo = SyncEngineService.ciclo as int;
+        if(ciclo<0){
+            redirect(controller: 'Series', view:'waitingStart')
+        }   else{
+            User user = springSecurityService.currentUser
+            [user:user]
+        }
 
     }
 
@@ -49,11 +57,30 @@ class TransaccionesController {
 
 
     def comprar() {
-
+        boolean needAccion = true;
         print(precioGlobal)
          User user = springSecurityService.currentUser;
          def trans = new Transacciones();
+        def company_selected = Company.findByName(params.empresas);
         // trans.id = id;
+
+        for(Acciones ac : user.acciones){
+            if (ac.company_ac == company_selected){
+                needAccion = false
+                break;
+            }
+        }
+
+        if (needAccion == true){
+            def nueva_ac = new Acciones()
+            nueva_ac.company_ac = company_selected  ;
+            nueva_ac.user = user;
+            nueva_ac.cantidad_ac = (params.cantidadAcciones as int);
+            nueva_ac.save()
+            if(!nueva_ac.save()){
+                render "NO SE PUDO CREAR LA TRANSACCION"
+            }
+        }
          trans.usuario = user;
          trans.broker = null;
          trans.empresa = Company.findByName(params.empresas);
@@ -62,6 +89,15 @@ class TransaccionesController {
          trans.periodo=SyncEngineService.ciclo as int;
          trans.tipo = "compra";
          trans.cantidadacciones = params.cantidadAcciones as int;
+        if(needAccion == false){
+            for(Acciones ac : user.acciones){
+                if (ac.company_ac == company_selected){
+                    ac.cantidad_ac = ac.cantidad_ac + (params.cantidadAcciones as int)
+                    break;
+                }
+            }
+
+        }
         user.capital -= trans.montototal;
          if(!trans.save() && !user.save()){
 
@@ -75,8 +111,29 @@ class TransaccionesController {
     def venta(){
         User user = springSecurityService.currentUser
         int numeroSerie = SyncEngineService.ciclo
+        //sacamos solo las empresas de las cuales tiene acciones
+        Map empresaCantidad = new HashMap<String,Integer>()
+        Company [] companies = Company.findAll();
+        Transacciones [] trans = Transacciones.findAllByUsuario(user);
+        for (Company c : companies ){
+            empresaCantidad.put(c.name,0)
+        }
+        for(Transacciones t : trans ){
+            String compName = t.empresa.name
+            if(t.tipo.equals("venta")) {
+                empresaCantidad.put(compName, empresaCantidad.get(compName) - t.cantidadacciones)
+            }else if(t.tipo.equals("compra")){
+                empresaCantidad.put(compName,empresaCantidad.get(compName) + t.cantidadacciones)
+            }
+        }
+        for (Map.Entry<String, Integer> entry : empresaCantidad.entrySet())
+        {
+            if(entry.getValue() <= 0){
+                empresaCantidad.remove(entry.getKey())
+            }
+        }
 
-        [user: user, precio: 0]
+        [user: user, precio: 0, empresas:empresaCantidad]
     }
     def actualizarValores(String nombre){
         print("Valor company")
@@ -107,7 +164,7 @@ class TransaccionesController {
             flash.message = "Seleccione una empresa"
             redirect(controller: 'transacciones', action: 'venta')
             return
-        } else if(Integer.parseInt(params.cantidad) < 0){
+        } else if(Integer.parseInt(params.cantidad) <= 0){
             flash.message = "Debe vender mas de una accion"
             redirect(controller: 'transacciones', action: 'venta')
             return
