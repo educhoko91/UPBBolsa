@@ -2,7 +2,9 @@ package edu.upb.upbBolsa
 
 import Registration.UserRole
 import edu.upb.upbBolsa.VariablesSistema
+import grails.plugins.springsecurity.Secured
 
+@Secured(['IS_AUTHENTICATED_REMEMBERED',"hasRole('ROLE_ADMIN')"])
 
 class ConfigSisController {
 

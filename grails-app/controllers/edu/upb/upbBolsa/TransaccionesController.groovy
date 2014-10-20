@@ -1,6 +1,7 @@
 package edu.upb.upbBolsa
 
 import Registration.User
+import grails.plugins.springsecurity.Secured
 import groovy.sql.Sql
 import upbbolsa.SyncEngineService
 import java.text.DecimalFormat
@@ -11,11 +12,13 @@ class TransaccionesController {
     private static double precioGlobal
     def springSecurityService
     def dataSource
+
     def index() {
 
         render view: 'transacciones'
 
     }
+
 
     def compra(){
 
@@ -240,6 +243,7 @@ class TransaccionesController {
         [transacciones : trans, user: user, companies: empresaCantidad]
     }
 
+    @Secured(["hasRole('ROLE_BROK')"])
     def brokerMove(){
         if(params.select_user != '' && params.select_company != '' && Integer.parseInt(params.quantity_capital) > 0 && params.quantity_capital != null) {
             if (params.select_option == 'Comprar') {
@@ -252,6 +256,7 @@ class TransaccionesController {
         }
     }
 
+    @Secured(["hasRole('ROLE_BROK')"])
     def brokerComprar(){
         def trans = new Transacciones();
         boolean needAccion = true;
@@ -325,7 +330,7 @@ class TransaccionesController {
 
 
 
-
+    @Secured(["hasRole('ROLE_BROK')"])
     def brokerVender(){
         def trans = new Transacciones();
         User broker = springSecurityService.currentUser;

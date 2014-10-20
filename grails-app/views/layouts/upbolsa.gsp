@@ -23,6 +23,7 @@
 <div id="head">
     <div class="wrap">
         <h1>UPB Bolsa</h1>
+        <img  src="${resource(dir: 'images', file: 'logoupb.png')}" style="position: absolute; right: 100px; background: #ffffff; top: 50px" />
         <h2>inspired by <a href="">LOS SISTEMATICOS</a></h2>
         <div id="nav">
             <ul>
@@ -79,7 +80,13 @@
 
     <div class="clearer">&nbsp;</div><br /><br />
     <p class="foot">
-        Template by MOROCHO
+        Powered by LOS SISTEMATICOS:
+            Alvaro Bilbao,
+            Omar Cespedes,
+            Nestor Chavarria,
+            Miguel Ferrufino,
+            Eduardo Liendo,
+            Daniel Sagarnaga.
 
     </p>
 </div></div>

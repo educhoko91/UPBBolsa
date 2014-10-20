@@ -1,19 +1,23 @@
 package edu.upb.upbBolsa
 
+import grails.plugins.springsecurity.Secured
 import org.springframework.dao.DataIntegrityViolationException
 import upbbolsa.SyncEngineService
 
 class NoticiaController {
 
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def index() {
         redirect(action: "create", params: params)
     }
 
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def create(){
         def noticias = Noticia.getAll();
         [noticiaInstance:new Noticia(params), noticias:noticias]
     }
 
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def save(){
         def noticia = new Noticia(params);
 //        print "paso new noticia"
@@ -38,6 +42,7 @@ class NoticiaController {
         redirect(action: "create")
     }
 
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def edit(){
         try{
             def noticia = Noticia.get(params.id);
@@ -52,6 +57,8 @@ class NoticiaController {
             print "no se pudo editar"
         }
     }
+
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def update(){
         print params
         def noticia = Noticia.get(params.id)
@@ -98,6 +105,7 @@ class NoticiaController {
         }
     }
 
+    @Secured(["hasRole('ROLE_ADMIN')"])
     def delete(){
         try{
             def noticia = Noticia.get(params.id);

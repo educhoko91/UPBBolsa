@@ -1,5 +1,6 @@
 package edu.upb.upbBolsa
 
+import grails.plugins.springsecurity.Secured
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.grails.plugins.excelimport.*
@@ -8,8 +9,8 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile
 import upbbolsa.SyncEngineService;
 
+@Secured(['IS_AUTHENTICATED_REMEMBERED',"hasRole('ROLE_ADMIN')"])
 class CompanyController {
-
 
     def index() {
         redirect(action: "create", params: params)
@@ -20,6 +21,7 @@ class CompanyController {
         print companies;
         [companyInstance:new Company(params),companies:companies ]
     }
+
 
     def delete(){
         print params
