@@ -12,6 +12,7 @@ class TransaccionesController {
     def springSecurityService
     def dataSource
     def index() {
+        if(SyncEngine)
         render view: 'transacciones'
 
     }

@@ -1,4 +1,5 @@
 import Registration.UserRole
+import edu.upb.upbBolsa.SeriesController
 import grails.converters.JSON
 import org.apache.xmlbeans.impl.xb.ltgfmt.FileDesc
 
@@ -34,7 +35,7 @@ class LoginController {
 	 */
 	def index = {
 		if (springSecurityService.isLoggedIn()) {
-			redirect uri: SpringSecurityUtils.securityConfig.successHandler.defaultTargetUrl
+			redirect controller: 'Series', view: 'waitingStart'
 		}
 		else {
 			redirect action: 'auth', params: params
@@ -48,7 +49,7 @@ class LoginController {
 
 		def config = SpringSecurityUtils.securityConfig
 		if (springSecurityService.isLoggedIn()) {
-			redirect uri: config.successHandler.defaultTargetUrl
+            redirect controller: 'Series', view: 'waitingStart'
 			return
 		}
 		String view = 'auth'
