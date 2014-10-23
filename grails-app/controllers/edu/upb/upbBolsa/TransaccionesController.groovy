@@ -33,29 +33,29 @@ class TransaccionesController {
 
     }
 
-    def listDetail(String company) {
-        Company companyInstance = Company.findByName(company);
-        print(companyInstance)
-        Serie serie = Serie.findByCompany(companyInstance)
-
-            DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
-            if(!(datoserieInstance instanceof Null)){
-                print(datoserieInstance)
-                BigDecimal precio = datoserieInstance.price;
-                precioGlobal = precio.toDouble();
-                render(contentType: 'text/json'){
-                    [
-                            'precio' : precio,
-                    ]
-
-                }
-            } else{
-                redirect(controller: "company", action: "create", params: params)
-            }
-
-
-
- }
+//    def listDetail(String company) {
+//        Company companyInstance = Company.findByName(company);
+//        print(companyInstance)
+//        Serie serie = Serie.findByCompany(companyInstance)
+//
+//            DatoSerie datoserieInstance = DatoSerie.findByPeriodAndSerie(new BigInteger(SyncEngineService.getCiclo() + ""), serie);
+//            if(!(datoserieInstance instanceof Null)){
+//                print(datoserieInstance)
+//                BigDecimal precio = datoserieInstance.price;
+//                precioGlobal = precio.toDouble();
+//                render(contentType: 'text/json'){
+//                    [
+//                            'precio' : precio,
+//                    ]
+//
+//                }
+//            } else{
+//                redirect(controller: "company", action: "create", params: params)
+//            }
+//
+//
+//
+// }
 
 
 
@@ -141,15 +141,12 @@ class TransaccionesController {
         ArrayList<String> aux = new ArrayList<String>();
         for (Map.Entry<String, Integer> entry : empresaCantidad.entrySet())
         {
-            if(entry.getValue() <= 0){
+            if(entry.getValue() > 0){
                 aux.add(entry.getKey());
             }
         }
-        for (String s: aux){
-            empresaCantidad.remove(s);
-        }
 
-        [user: user, precio: 0, empresas:empresaCantidad]
+        [user: user, precio: 0, empresas:aux]
     }
     def actualizarValores(String nombre){
         print("Valor company")

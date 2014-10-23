@@ -1,0 +1,21 @@
+/*solo para las transacciones*/
+.flash-msg{
+    font-size: 15px;
+    color: red;
+}
+
+.data-simulacion{
+    text-align: right;
+    font-weight: bold;
+    font-size: 20px;
+    color: #000000;
+}
+
+.data-venta,.info-venta, .info-empresa {
+    font-size: 18px;
+}
+
+.bold{
+    font-weight: bold;
+    color: #000000;
+}

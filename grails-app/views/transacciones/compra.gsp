@@ -10,19 +10,23 @@
 <head>
     <title>Compra</title>
     <meta name="layout" content="upbolsa">
+    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
     <g:javascript >
-        var precioaccom
+        var precioaccom;
         function valuecompany(){
             var valcompany = $(".empresa").val();
             console.log("valcompany",valcompany);
-            $(".empresasel").html(valcompany);
-            $.getJSON("${createLink(controller: 'transacciones', action: 'listDetail')}",{'company':valcompany}, function(data) {
-            precioaccom = data.precio;
-            precioaccom = precioaccom.toFixed(2);
-            precioaccom = parseFloat(precioaccom);
-            $(".precioaccion").html(precioaccom);
-
-                    });
+            if(valcompany == 'null'){
+                $('.precioaccion').html(0)
+            } else {
+//                $(".empresasel").html(valcompany);
+                $.getJSON("${createLink(controller: 'transacciones', action: 'actualizarValores')}",{'nombre':valcompany}, function(data) {
+                    precioaccom = data.precio;
+                    precioaccom = precioaccom.toFixed(2);
+                    precioaccom = parseFloat(precioaccom);
+                    $(".precioaccion").html(precioaccom);
+                });
+            }
 
         }
 
@@ -39,7 +43,7 @@
             saldo = parseFloat(saldo);
             console.log("costo",total);
             console.log("capital",capitaluser);
-            if(parseFloat(capitaluser)<parseFloat(total)){
+            if(parseFloat(capitaluser) < parseFloat(total)){
                 $(".mostrarsaldo").html("SALDO INSUFICIENTE");
                  $(".subbutton").hide();
             }else{
@@ -54,32 +58,40 @@
         var tiempoIntervalo = ${edu.upb.upbBolsa.VariablesSistema.findByNombre("interTiempo").value};
         tiempoIntervalo = parseInt(tiempoIntervalo);
         window.setInterval(function(){
-            calccosto();valuecompany()
-        },tiempoIntervalo*1);
+            valuecompany();
+            calccosto();
+
+        },tiempoIntervalo*1000/3);
 
     </g:javascript>
 </head>
 
 <body>
 <h1>COMPRA DE ACCIONES</h1>
+<br/>
 <g:form action="comprar" class="cssform">
-    <div class="info-compra">
-                <span>Su usuario: ${user.username}</span><br/>
-                <span>Su capital: </span><output class="capital">${user.capital}</output> <br/>
-                <span>Seleccionar una empresa: </span><g:select class="empresa" name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}" onclick="valuecompany()" noSelection="['':'Seleccione una empresa']"></g:select> <br/>
-                <span>Empresa seleccionada:  </span><span class="empresasel"></span><br/>
-
+    <div class="info-venta">
+                %{--<span>Su usuario: ${user.username}</span><br/>--}%
+        <span>Su capital: </span><output class="capital bold">${user.capital}</output> <br/>
+        <span >Costo de transferencia: </span><output class="costoTransfer" format="\$#.##">${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}</output> <br/><br/>
+        <span>Seleccionar una empresa: </span><g:select class="empresa" name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}" onclick="valuecompany()" noSelection="['null':'Seleccione una empresa']"></g:select> <br/>
+                %{--<span>Empresa seleccionada:  </span><span class="empresasel"></span><br/>--}%
     </div>
     <div class="info-empresa">
         <g:hiddenField name="precioAccion" class="precioaccion"></g:hiddenField>
         <g:hiddenField name="costoTransfer" value="${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}" ></g:hiddenField>
-        <span>Precio por acción:</span><output class="precioaccion" format="\$#.##"></output> <br/>
-        <span >Costo de transferencia: </span><output class="costoTransfer" format="\$#.##">${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}</output> <br/>
-        <span>Numero de acciones que desea comprar: </span><input class="cantidad" type="number" name="cantidadAcciones" onchange="calccosto()">   <br/>
-        <span>Costo total:</span><span class="mostrarsaldo" format="\$#.##"></span> <br/>
-        <span>Saldo: </span><output class="saldo" format="\$#.##"></output>        <br/>
-            <g:submitButton class="subbutton" name="comprar">COMPRAR</g:submitButton>
+        <br/>
+        <span>Cantidad de acciones: </span><input class="cantidad" type="number" name="cantidadAcciones" onchange="calccosto()" required="">   <br/>
+        <br/>
 
+
+        <div class="data-simulacion">
+            <span>Precio por acción:</span><output class="precioaccion" format="\$#.##"></output> <br/>
+            <span>Costo total:</span><span class="mostrarsaldo" format="\$#.##"></span> <br/>
+            <span>Saldo: </span><output class="saldo" format="\$#.##"></output>        <br/>
+        </div>
+
+        <g:submitButton class="subbutton" name="comprar">COMPRAR</g:submitButton>
 
     </div>
 </g:form>
