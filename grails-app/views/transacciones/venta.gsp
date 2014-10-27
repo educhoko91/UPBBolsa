@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
     <script type="text/javascript">
         var precioAccion = 0;
+        var primeraVez = true;
         function updateValues(){
             var companyNombre = $('.empresaNombre').val();
             console.log('no hay compania',companyNombre);
@@ -32,11 +33,22 @@
         }
 
         var tiempoIntervalo = ${edu.upb.upbBolsa.VariablesSistema.findByNombre("interTiempo").value};
+        var primerTiempo = ${upbbolsa.SyncEngineService.getInter()};
+        primerTiempo = parseFloat(primerTiempo)
         tiempoIntervalo = parseInt(tiempoIntervalo);
-        window.setInterval(function(){
-            updateValues();
-            calcularTotal();
-        },tiempoIntervalo*1000/3);
+        if (primeraVez) {
+            window.setInterval(function(){
+                updateValues();
+                calcularTotal();
+            },primerTiempo-100);
+            primeraVez = false;
+        } else {
+            window.setInterval(function(){
+                updateValues();
+                calcularTotal();
+            },tiempoIntervalo*900);
+        }
+
 
 
     </script>
