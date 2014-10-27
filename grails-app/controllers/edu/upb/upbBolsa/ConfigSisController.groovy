@@ -111,7 +111,11 @@ class ConfigSisController {
     private def resetDatabase() {
 
         if(Transacciones.count()>0) {
-            Transacciones.deleteAll();
+            def t = Transacciones.findAll();
+            Transacciones.deleteAll(t);
+        }
+        if(Acciones.count()>0) {
+            Acciones.deleteAll();
         }
         if(Pagos.count()>0) {
             Pagos.deleteAll();
