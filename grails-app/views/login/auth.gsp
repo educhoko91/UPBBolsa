@@ -3,14 +3,15 @@
 <head>
     <title>LOG IN</title>
     <meta name="layout" content="upbolsa">
+    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
 
 </head>
 
 <body style="align : left">
 <g:if test='${flash.message}'>
-    <div class='login_message'>${flash.message}</div>
+    <div class='flash-msg'>${flash.message}</div>
 </g:if>
-        <table width="650" valign="top" class="cssform">
+        <table>
             <tr>
                 <td width="200" valign="top">
                     <div id='login'>

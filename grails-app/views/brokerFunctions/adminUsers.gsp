@@ -33,10 +33,10 @@
         </p>
     </g:form>
     </p>
-    <table>
+    <table class="gridtable">
         <tr>
             <td>
-                <table>
+                <table class="gridtable">
                     <g:each in="${params.broker_all_users}">
                         <tr>
                             <td>

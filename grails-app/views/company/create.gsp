@@ -35,7 +35,7 @@
             <br />
         </p>
         <p>
-            <table>
+            <table class="gridtable">
                 <thead>
                 <tr>
 

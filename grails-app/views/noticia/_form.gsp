@@ -1,12 +1,12 @@
 <%@ page import="edu.upb.upbBolsa.Noticia" %>
 
-<table width="100%" valign="top">
+<table width="100%" valign="top" class="gridtable">
     <tr>
         <td width="40%"  class="cssform" valign="top">
             <div>
                 <label>Empresas</label>
             </div>
-            <table >
+            <table class="gridtable">
                 <g:each in="${edu.upb.upbBolsa.Company.list()}" var="company">
                     <tr>
                         <td><g:checkBox name="companies" value="${company.id}" id="${company.id}"/></td>

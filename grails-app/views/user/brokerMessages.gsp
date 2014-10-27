@@ -26,7 +26,7 @@
     <g:if test='${flash.message}'>
         <div>${flash.message}</div>
     </g:if>
-    <table>
+    <table class="gridtable">
         <tr>
             <td>
                 <p>
