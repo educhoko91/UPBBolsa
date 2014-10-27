@@ -1,13 +1,13 @@
 package edu.upb.upbBolsa
 
+import grails.plugins.springsecurity.Secured
 import upbbolsa.SyncEngineService
 
 import java.text.NumberFormat
-
+@Secured('IS_AUTHENTICATED_REMEMBERED')
 class SeriesController {
 
     def id = 0;
-
     def index() {
         sleep(200);
         if (SyncEngineService.getCiclo()==-2) {
