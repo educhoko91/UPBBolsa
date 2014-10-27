@@ -10,15 +10,16 @@
 <head>
     <title>RESUMEN USUARIO</title>
     <meta name="layout" content="upbolsa">
+    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
 </head>
 
 <body>
     <h1>Resumen </h1>
     <br/><br/>
     <h2>Estado actual acciones</h2>
-    <table>
+    <table class="gridtable">
         <tr>
-            <td>Empresa</td><td>Acciones</td>
+            <th>Empresa</th><th>Acciones</th>
         </tr>
         <g:each in="${companies}" var="comp">
             <tr>
@@ -29,8 +30,8 @@
     </table>
     <br/><br/>
     <h2>Historial de Transacciones</h2>
-    <table>
-        <tr><td>Empresa</td><td>Acciones</td><td>Tipo</td></tr>
+    <table class="gridtable">
+        <tr><th>Empresa</th><th>Acciones</th><th>Tipo</th></tr>
         <g:each in="${transacciones}" var="trans">
             <tr>
                 <td> ${trans.empresa.name}</td><td>${trans.cantidadacciones} </td><td>${trans.tipo}</td>

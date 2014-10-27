@@ -70,6 +70,9 @@
             </g:if>
         </ul>
     </sec:ifAllGranted>
+    <sec:ifAllGranted roles="ROLE_CAJA">
+        <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
+    </sec:ifAllGranted>
     </div>
     <div id="content">
         <g:layoutBody/>

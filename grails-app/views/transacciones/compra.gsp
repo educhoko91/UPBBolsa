@@ -71,6 +71,7 @@
 <br/>
 <g:form action="comprar" class="cssform">
     <div class="info-venta">
+                %{--<span>hola</span>--}%
                 %{--<span>Su usuario: ${user.username}</span><br/>--}%
         <span>Su capital: </span><output class="capital bold">${user.capital}</output> <br/>
         <span >Costo de transferencia: </span><output class="costoTransfer" format="\$#.##">${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}</output> <br/><br/>
