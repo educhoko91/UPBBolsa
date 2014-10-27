@@ -101,6 +101,10 @@ class CompanyController {
                     datos.save(failOnError: true);
                 }
 
+                def cicloFin = VariablesSistema.findByNombre("cicloFin");
+                cicloFin.value  = Math.min(serieList.size(),Long.parseLong(cicloFin.value));
+                cicloFin.save(failOnError: true, flush: true);
+
             }
 
         }else{
