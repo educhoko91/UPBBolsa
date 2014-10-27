@@ -70,7 +70,7 @@
             <div class="data-venta">
                 <span>Empresa:</span> <g:select name="empresa" class="empresaNombre" onchange="updateValues()" noSelection="${['null':'Seleccione una empresa...']}" from="${empresas}" >Empresa</g:select><br />
                 <br/>
-                <span>Cantidad:</span> <input class="cantidad" type="number" name="cantidad" required="" onchange="calcularTotal()">
+                <span>Cantidad:</span> <input class="cantidad" type="number" name="cantidad" required="" onchange="calcularTotal()" onkeypress="calcularTotal()">
                 <g:hiddenField name="precio" class="precio-accion"></g:hiddenField>
                 <g:hiddenField name="costoTransfer" value="${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}"></g:hiddenField>
             </div>

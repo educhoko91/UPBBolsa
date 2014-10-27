@@ -193,8 +193,15 @@ class TransaccionesController {
         for(Acciones ac_vent : ac_venta){
             if(ac_vent.company_ac == empresa){
                 numeroAcciones =  ac_vent.cantidad_ac;
-                if(numeroAcciones > (Integer.parseInt(params.cantidad))) {
+                print("acvent"+ac_vent)
+                print("cantidad" +params.cantidad)
+                print("numeroacciones"+numeroAcciones)
+                if(numeroAcciones >= (Integer.parseInt(params.cantidad))) {
                     ac_vent.cantidad_ac = ac_vent.cantidad_ac - (Integer.parseInt(params.cantidad));
+                } else {
+                    flash.message = "No tiene suficientes acciones"
+                    redirect(controller: 'transacciones', action: 'venta')
+                    return
                 }
                 break;
             }
@@ -215,7 +222,7 @@ class TransaccionesController {
         }
 
         if(Integer.parseInt(params.cantidad) > numeroAcciones){
-            print "No tiene suficientes acciones"
+            print "No tiene suficientes acciones abajo"
             flash.message = "No tiene suficientes acciones"
             redirect(controller: 'transacciones', action: 'venta')
             return

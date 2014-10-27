@@ -16,6 +16,8 @@
 <body>
     <h1>Resumen </h1>
     <br/><br/>
+    <span class="data-simulacion">Saldo Actual: ${user.capital}</span>
+    <br/><br/>
     <h2>Estado actual acciones</h2>
     <table class="gridtable">
         <tr>
@@ -31,10 +33,10 @@
     <br/><br/>
     <h2>Historial de Transacciones</h2>
     <table class="gridtable">
-        <tr><th>Empresa</th><th>Acciones</th><th>Tipo</th></tr>
+        <tr><th>Empresa</th><th>Acciones</th><th>Tipo</th><th>Precio de Compra</th></tr>
         <g:each in="${transacciones}" var="trans">
             <tr>
-                <td> ${trans.empresa.name}</td><td>${trans.cantidadacciones} </td><td>${trans.tipo}</td>
+                <td> ${trans.empresa.name}</td><td>${trans.cantidadacciones} </td><td>${trans.tipo}</td><td>${trans.montounitario}</td>
             </tr>
         </g:each>
     </table>
