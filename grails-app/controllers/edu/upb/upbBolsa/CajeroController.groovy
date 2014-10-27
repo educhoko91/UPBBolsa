@@ -3,21 +3,26 @@ package edu.upb.upbBolsa
 import Registration.User
 import edu.upb.upbBolsa.Cajero
 import grails.converters.*
+import grails.plugins.springsecurity.SpringSecurityService
 
 class CajeroController {
 
+    def springSecurityService
     def index() {
+        User cajero = springSecurityService.currentUser;
+        params.cajeroname = cajero;
         render (view: "/Cajero/habiltaciones", params: params)
+
     }
 
 
-
-    def springSecurityService
     def save(){
         User habilitado = User.findByUsername(params.username);
 
         print("numero habilitaciones " + VariablesSistema.findByNombre('numHabilit').getValue())
-        if (habilitado.numeroHabilitaciones > VariablesSistema.findByNombre('numHabilit').getValue() ){
+        if (habilitado.numeroHabilitaciones > Integer.parseInt(VariablesSistema.findByNombre('numHabilit').getValue()) ){
+            User cajero = springSecurityService.currentUser;
+            params.cajeroname = cajero;
             flash.message = "Ya no tiene mas habilitaciones disponibles"
             redirect(controller: 'cajero',action: 'index')
         } else {
@@ -30,6 +35,7 @@ class CajeroController {
             habilitado.capital += Double.parseDouble(VariablesSistema.findByNombre('capInicio').getValue())
             habilitado.save()
         }
+        print(params)
         render view: "/Cajero/habiltaciones"
     }
 

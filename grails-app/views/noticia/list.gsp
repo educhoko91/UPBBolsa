@@ -13,6 +13,7 @@
 </head>
 
 <body>
+<h1>Noticias</h1>
 <p>
 <table>
     <thead>

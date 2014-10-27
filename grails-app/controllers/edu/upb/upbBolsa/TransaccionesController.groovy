@@ -74,6 +74,18 @@ class TransaccionesController {
             }
         }
 
+
+        if(0>Double.parseDouble(params.cantidadAcciones)){
+            flash.message = "Debe comprar una cantidad positiva de acciones, se notificará al administrador el fallo"  ;
+            redirect(action:'compra')
+            return;
+        }
+       if(user.capital< Double.parseDouble(params.cantidadAcciones)*precioGlobal){
+       flash.message = "Su capital no alcanza para comprar la cantidad de acciones que desea"  ;
+       redirect(action:'compra')
+       return;
+       }
+
         if (needAccion == true){
             def nueva_ac = new Acciones()
             nueva_ac.company_ac = company_selected  ;
@@ -81,7 +93,9 @@ class TransaccionesController {
             nueva_ac.cantidad_ac = (params.cantidadAcciones as int);
             nueva_ac.save()
             if(!nueva_ac.save()){
-                render "NO SE PUDO CREAR LA TRANSACCION"
+                flash.message = "No se pudo realizar la compra"  ;
+                redirect(action:'compra')
+                return;
             }
         }
          trans.usuario = user;
@@ -105,9 +119,11 @@ class TransaccionesController {
          if(!trans.save() && !user.save()){
              flash.message = "Compra Fallida"
              redirect(controller: 'transacciones', action: 'compra')
+             return
          }else{
              flash.message = "Compra Exitosa"
              redirect(controller: 'transacciones', action: 'compra')
+             return
          }
 
         }

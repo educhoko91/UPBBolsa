@@ -13,6 +13,7 @@
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
     <g:javascript >
         var precioaccom;
+        var primeravez = true;
         function valuecompany(){
             var valcompany = $(".empresa").val();
             console.log("valcompany",valcompany);
@@ -46,6 +47,7 @@
             if(parseFloat(capitaluser) < parseFloat(total)){
                 $(".mostrarsaldo").html("SALDO INSUFICIENTE");
                  $(".subbutton").hide();
+                 $(".saldo").html(saldo);
             }else{
                 $(".mostrarsaldo").html(total);
                 $(".subbutton").show();
@@ -57,17 +59,32 @@
 
         var tiempoIntervalo = ${edu.upb.upbBolsa.VariablesSistema.findByNombre("interTiempo").value};
         tiempoIntervalo = parseInt(tiempoIntervalo);
-        window.setInterval(function(){
+        tiempoprimera = ${upbbolsa.SyncEngineService.getInter()}
+        tiempoprimera = parseFloat(tiempoprimera);
+        if(primeravez){
+            window.setInterval(function(){
+            valuecompany();
+            calccosto();
+            primeravez = false;
+        },tiempoprimera-100);
+        }else{
+            window.setInterval(function(){
             valuecompany();
             calccosto();
 
-        },tiempoIntervalo*1000/3);
+        },tiempoIntervalo*950);
+
+        }
 
     </g:javascript>
 </head>
 
 <body>
 <h1>COMPRA DE ACCIONES</h1>
+<br/>
+<g:if test='${flash.message}'>
+    <div class='flash-msg'>${flash.message}</div>
+</g:if>
 <br/>
 <g:form action="comprar" class="cssform">
     <div class="info-venta">
