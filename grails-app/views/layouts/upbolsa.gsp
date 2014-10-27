@@ -10,6 +10,7 @@
 <head>
     <title>UPBBolsa</title>
     <link rel="stylesheet" type="text/css" href="${resource(dir: 'css/theme', file: 'style.css')}" media="screen" title="style (screen)" />
+    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
 
     <g:javascript library="jquery-ui" />
 
@@ -39,6 +40,7 @@
                 <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
                 <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
                 <li><g:link controller="transacciones" action="resumen">Resumen</g:link></li>
+                <li><g:link controller="user" action="brokerMessages">Solicitar Broker</g:link></li>
                 <sec:ifNotLoggedIn>
                     <li><g:link controller="login" action="auth">Log-In</g:link> </li>
                 </sec:ifNotLoggedIn>
@@ -57,13 +59,19 @@
             <li><g:link controller="noticia" action="create">Crear Noticia</g:link></li>
             <li><g:link controller="Broker" action="list">Config brocker</g:link></li>
             <li><g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
-            <li><a href="">Asignar Cajero</a></li>
+            <li><g:link controller="cajero" action="list">Asignar Cajero</g:link></li>
             <li><a href="">Caja</a></li>
             <g:if test="${upbbolsa.SyncEngineService.isRunning()}">
                 <li> <g:link controller="simulation" action="stop">Parar Simulacion</g:link> </li>
             </g:if>
         </ul>
     </sec:ifAllGranted>
+        <sec:ifAllGranted roles="ROLE_BROK">
+            <h1>Menu Broker</h1>
+            <ul>
+                <li><g:link controller="brokerFunctions" action="adminUsers">Administrar Usuarios</g:link> </li>
+            </ul>
+        </sec:ifAllGranted>
     <sec:ifAllGranted roles="ROLE_CAJA">
         <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
         <sec:ifNotLoggedIn>

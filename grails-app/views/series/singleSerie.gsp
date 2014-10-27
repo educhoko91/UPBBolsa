@@ -22,7 +22,7 @@
     <br />
     <br />
     <g:link name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:link>
-        <table>
+        <table class="gridtable">
         <tr>
             <td>
                 <h2>

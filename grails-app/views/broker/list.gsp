@@ -23,13 +23,13 @@
 			</g:if>
 
 
-            <table width="100%">
+            <table class="gridtable">
             <thead>
             <tr>
 
-                <th style="width:250px; text-align:center;"><g:message code="broker.userusername.label" default="User" /></th>
-                <th style="width:250px; text-align:center;"><g:message code="broker.userfullname.label" default="Fullname" /></th>
-                <th style="width:250px; text-align:center;"><g:message code="broker.brokeruserlimit.label" default="Userslimit" /></th>
+                <th><g:message code="broker.userusername.label" default="User" /></th>
+                <th ><g:message code="broker.userfullname.label" default="Fullname" /></th>
+                <th ><g:message code="broker.brokeruserlimit.label" default="Userslimit" /></th>
 
 
             </tr>
@@ -37,9 +37,9 @@
             <tbody>
                 <g:each in="${brokerInstanceList}" status="i" var="brokerInstance">
                     <tr>
-                        <td style="width:250px; background-color:whitesmoke; text-align:center;"><g:link action="show" id="${brokerInstance?.id}">${fieldValue(bean: brokerInstance, field: "user.username")}</g:link></td>
-                        <td style="width:250px; background-color:whitesmoke; text-align:center;">${fieldValue(bean: brokerInstance, field: "user.fullname")}</td>
-                        <td style="width:250px; background-color:whitesmoke; text-align:center;">${fieldValue(bean: brokerInstance, field: "userslimit")} </td>
+                        <td ><g:link action="show" id="${brokerInstance?.id}">${fieldValue(bean: brokerInstance, field: "user.username")}</g:link></td>
+                        <td >${fieldValue(bean: brokerInstance, field: "user.fullname")}</td>
+                        <td>${fieldValue(bean: brokerInstance, field: "userslimit")} </td>
                     </tr>
                 </g:each>
             </tbody>

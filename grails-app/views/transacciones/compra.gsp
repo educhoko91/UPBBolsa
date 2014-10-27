@@ -92,14 +92,14 @@
                 %{--<span>Su usuario: ${user.username}</span><br/>--}%
         <span>Su capital: </span><output class="capital bold">${user.capital}</output> <br/>
         <span >Costo de transferencia: </span><output class="costoTransfer" format="\$#.##">${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}</output> <br/><br/>
-        <span>Seleccionar una empresa: </span><g:select class="empresa" name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}" onclick="valuecompany()" noSelection="['null':'Seleccione una empresa']"></g:select> <br/>
+        <span>Seleccionar una empresa: </span><g:select class="empresa" name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}" onkeypress="valuecompany()" onclick="valuecompany()" noSelection="['null':'Seleccione una empresa']"></g:select> <br/>
                 %{--<span>Empresa seleccionada:  </span><span class="empresasel"></span><br/>--}%
     </div>
     <div class="info-empresa">
         <g:hiddenField name="precioAccion" class="precioaccion"></g:hiddenField>
         <g:hiddenField name="costoTransfer" value="${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}" ></g:hiddenField>
         <br/>
-        <span>Cantidad de acciones: </span><input class="cantidad" type="number" name="cantidadAcciones" onchange="calccosto()" required="">   <br/>
+        <span>Cantidad de acciones: </span><input class="cantidad" type="number" name="cantidadAcciones" onchange="calccosto()" required="" onkeypress="calccosto()">   <br/>
         <br/>
 
 

@@ -15,7 +15,7 @@
 <body>
 <h1>Noticias</h1>
 <p>
-<table>
+<table class="gridtable">
     <thead>
     <tr>
 

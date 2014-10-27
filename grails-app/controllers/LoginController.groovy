@@ -69,15 +69,16 @@ class LoginController {
             u.enabled = true
             if (params.password == params.verify_password) {
                 if (!u.save()) {
-                    flash.message = 'No se pudo registrar, revise haber llenado todos los campos correctamente'
+                    flash.message = "No se pudo registrar, revise haber llenado todos los campos correctamente"
                     redirect(controller: 'login', action: 'auth')
                     return [user: u]
                 } else {
                     UserRole.create(u, userRole)
+                    flash.message = "Usuario creado correctamente"
                     redirect(controller: 'login', action: 'auth')
                 }
             } else {
-                flash.message = 'Los passwords no son iguales'
+                flash.message = "Los passwords no son iguales"
                 redirect(controller: 'login', action: 'auth')
                 return [user: u]
             }
@@ -135,7 +136,7 @@ class LoginController {
 				msg = g.message(code: "springSecurity.errors.login.locked")
 			}
 			else {
-				msg = g.message(code: "springSecurity.errors.login.fail")
+				msg = "No se pudo loguear, revise su usuario y password";
 			}
 		}
 

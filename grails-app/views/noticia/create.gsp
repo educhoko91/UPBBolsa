@@ -35,7 +35,7 @@
     </g:form>
 
     <p>
-        <table>
+        <table class="gridtable">
             <thead>
             <tr>
 
