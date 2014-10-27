@@ -15,7 +15,7 @@
 <head>
     <title>Habilitaciones</title>
     <meta name="layout" content="upbolsa">
-
+    <link rel="stylesheet" type="text/css" href="${resource(dir: 'css', file: 'transacciones.css')}" media="screen" title="style (screen)" />
         <g:javascript>
         $(document).ready(function() {
             $('.inputUserCajero').autocomplete({
@@ -30,23 +30,30 @@
 </head>
 
 <body>
-
+<h1 style="text-align: center">Funciones Cajero</h1>
+<br/>
+<h2>Habilitar Usuario</h2>
 <g:form action="save" class="cssform">
     <g:if test="${flash.message}">
         <div style="color: red" class="message" role="status">${flash.message}</div>
     </g:if>
-    <h1>Resumen de Caja</h1>
-    <span>Username:</span><g:select name="username" from="${Registration.User.findAll().username}"></g:select>
+
+    <span class="data-venta">Username:</span><g:select name="username" class="data-venta" from="${Registration.User.findAll().username}"></g:select>
     %{--Correo: <g:field type="text" name="correo"/><br>--}%
+
+
+    <div class="data-venta">
+        Costo de habilitacion real: <em><span class="data-simulacion">${VariablesSistema.findByNombre("costoHabilitacion").getValue()} Bs.</span> </em><br />
+        Monto de habilitacion ficticio: <em><span class="data-simulacion">${VariablesSistema.findByNombre("capInicio").getValue()} $</span></em>  <br />
+    </div>
+    <br/>
     <g:submitButton name="submit" value="Habilitar" />
-
-    <div>
-
-        Costo de habilitacion real: <em><span>${VariablesSistema.findByNombre("costoHabilitacion").getValue()} Bs.</span> </em><br />
-        Monto de habilitacion ficticio: <em><span>${VariablesSistema.findByNombre("capInicio").getValue()} $</span></em>  <br />
-
+</g:form>
+<br/><br/>
+    <h2>Resumen de Caja</h2>
+    <div class="data-venta">
         Cantidad de habilitaciones realizadas en la simulacion:  <%
-        try{ %> <span>${
+        try{ %> <span class="data-simulacion">${
         edu.upb.upbBolsa.Habilitaciones.findByCajero(params.cajeroname).count()
     }</span>
         <%} catch(Exception e){%>
@@ -56,17 +63,17 @@
       Plata total real:
 
       <%
-        try{ %> <span> ${Double.parseDouble((VariablesSistema.findByNombre("costoHabilitacion").getValue()))*  edu.upb.upbBolsa.Habilitaciones.findByCajero(params.cajeroname).count()
+        try{ %> <span class="data-simulacion"> ${Double.parseDouble((VariablesSistema.findByNombre("costoHabilitacion").getValue()))*  edu.upb.upbBolsa.Habilitaciones.findByCajero(params.cajeroname).count()
 
      }</span>
         <%} catch(Exception e){%>
         0 <%}
         %>
-
     </div>
 
 
-</g:form>
+
+
 
 </body>
 </html>
