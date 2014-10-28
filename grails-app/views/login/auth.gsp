@@ -19,9 +19,9 @@
                             <form action='${postUrl}' method='POST' id='loginForm' class='cssform'>
                                 <h2>Login</h2>
                                 <p>
-                                    <label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
+                                    <label title="Debe introducir su nombre de usuario" for='username'><g:message code="springSecurity.login.username.label"/>:</label>
                                     <input type='text' class='text' name='j_username' id='username'/>
-                                    <label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
+                                    <label title="Debe introducir su password, si no lo recuerda comuniquesé con el administrador" for='password'><g:message code="springSecurity.login.password.label"/>:</label>
                                     <input type='password' class='text' name='j_password' id='password'/>
                                     </br>
 

@@ -75,7 +75,7 @@ class TransaccionesController {
         }
 
 
-        if(0>Double.parseDouble(params.cantidadAcciones)){
+        if(0>=Double.parseDouble(params.cantidadAcciones)){
             flash.message = "Debe comprar una cantidad positiva de acciones, se notificará al administrador el fallo"  ;
             redirect(action:'compra')
             return;

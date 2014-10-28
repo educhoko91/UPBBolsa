@@ -20,6 +20,13 @@
 <body>
 
 <h1>Series</h1>
+<g:link name="Comprar Acciones" controller="transacciones" action="compra" style="right: 100px;position: absolute;background-color: red ;color: #ffffff;font-size: 30px">Comprar Acciones</g:link>
+<br />
+<br />
+<br />
+<br />
+<br />
+<g:link name="Vender Acciones" controller="transacciones" action="venta" style="right: 100px;position: absolute;background-color: green ;color: #ffffff;font-size: 30px">Vender Acciones</g:link>
 <table class="gridtable">
     <%=compTable%>
 </table>

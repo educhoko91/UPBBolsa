@@ -35,17 +35,17 @@
 
             <h1>Menu Basico</h1>
             <ul>
-                <li><g:link controller="series" action="index">Serie</g:link></li>
-                <li><g:link controller="noticia" action="list">Noticias</g:link></li>
-                <li><g:link controller="transacciones" action="venta">Venta</g:link></li>
-                <li><g:link controller="transacciones" action="compra">Compra</g:link> </li>
-                <li><g:link controller="transacciones" action="resumen">Resumen</g:link></li>
-                <li><g:link controller="user" action="brokerMessages">Solicitar Broker</g:link></li>
+                <li><g:link controller="series" action="index" title="Aqui podra visualizar todas las empresas">Serie</g:link></li>
+                <li><g:link controller="noticia" action="list" title="Aqui podra ver todas las noticias referentes a las empresas">Noticias</g:link></li>
+                <li><g:link controller="transacciones" action="venta" title="Aqui podra vender sus acciones">Venta</g:link></li>
+                <li><g:link controller="transacciones" action="compra" title="Aqui podra comprar acciones de la empresa que desea">Compra</g:link> </li>
+                <li><g:link controller="transacciones" action="resumen" title="Aqui podrá visualizar el resumen de su cuenta">Resumen</g:link></li>
+                <li><g:link controller="user" action="brokerMessages" title="Aqui podra soliciar un Broker">Solicitar Broker</g:link></li>
                 <sec:ifNotLoggedIn>
-                    <li><g:link controller="login" action="auth">Log-In</g:link> </li>
+                    <li><g:link controller="login" action="auth">Iniciar Sesion</g:link> </li>
                 </sec:ifNotLoggedIn>
                 <sec:ifLoggedIn>
-                    <li><g:link controller="logout" action="index">Log-Out</g:link></li>
+                    <li><g:link controller="logout" action="index">Cerrar Sesion</g:link></li>
                 </sec:ifLoggedIn>
                 <br/>
             </ul>
@@ -54,12 +54,12 @@
     <sec:ifAllGranted roles="ROLE_ADMIN">
         <h1>Menu Admin</h1>
         <ul>
-            <li><g:link controller="configSis" action="index">Config Sistema</g:link> </li>
-            <li><g:link controller="company" action="create"> Crear Empresa</g:link> </li>
-            <li><g:link controller="noticia" action="create">Crear Noticia</g:link></li>
-            <li><g:link controller="Broker" action="list">Config brocker</g:link></li>
-            <li><g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
-            <li><g:link controller="cajero" action="list">Asignar Cajero</g:link></li>
+            <li><g:link controller="configSis" action="index" title="Aqui podra configurar su sistema para la simulación">Config Sistema</g:link> </li>
+            <li><g:link controller="company" action="create" title="Aqui podra crear empresas para la simulación"> Crear Empresa</g:link> </li>
+            <li><g:link controller="noticia" action="create" title="Aqui podra crear noticias para las empresas">Crear Noticia</g:link></li>
+            <li><g:link controller="Broker" action="list" title="Aqui podra crear brokers">Config brocker</g:link></li>
+            <li><g:link controller="cajero" action="index" title="Aqui podra habilitar dinero ficticio para los jugadores">Habilitar Usuario</g:link> </li>
+            <li><g:link controller="cajero" action="list" title="Aqui podra crear cajeros">Asignar Cajero</g:link></li>
             <li><a href="">Caja</a></li>
             <g:if test="${upbbolsa.SyncEngineService.isRunning()}">
                 <li> <g:link controller="simulation" action="stop">Parar Simulacion</g:link> </li>
