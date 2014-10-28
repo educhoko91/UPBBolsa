@@ -27,8 +27,7 @@
         <thead>
         <tr>
 
-            <th><g:message code="cajero.userusername.label" default="User" /></th>
-            <th ><g:message code="cajero.userfullname.label" default="Fullname" /></th>
+            <th ><g:message code="cajero.userfullname.label" default="Usuario" /></th>
 
 
 
@@ -37,8 +36,7 @@
         <tbody>
         <g:each in="${cajeroInstanceList}" status="i" var="cajeroInstance">
             <tr>
-                <td ><g:link action="show" id="${cajeroInstance?.id}">${fieldValue(bean: cajeroInstance, field: "user.username")}</g:link></td>
-                <td >${fieldValue(bean: cajeroInstance, field: "user.fullname")}</td>
+                <td >${fieldValue(bean: cajeroInstance, field: "user.username")}</td>
                </tr>
         </g:each>
         </tbody>

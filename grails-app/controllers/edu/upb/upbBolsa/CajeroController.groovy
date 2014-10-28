@@ -23,6 +23,29 @@ class CajeroController {
         [cajeroInstanceList: Cajero.list(params), cajeroInstanceTotal: Cajero.count()]
     }
 
+    def save2(){
+        def userRole = Role.findByAuthority('ROLE_CAJA')
+        if (request.method == 'POST') {
+            def db = new Sql(dataSource)
+            String val = String.valueOf(params.user.id)
+            def result = db.rows("SELECT id FROM user WHERE username = ?;", [val])
+            int trueValueOfUserId = Integer.parseInt(String.valueOf(result).substring(5,String.valueOf(result).length()-2))
+            params.user.id = trueValueOfUserId
+            params."user.id" = trueValueOfUserId
+            def cajero = new Cajero(params)
+            if (!cajero.save()) {
+                flash.message = 'No se pudo registrar cajero'
+                redirect(controller:'cajero', action: 'list')
+                return [cajero:cajero]
+            } else {
+                UserRole.create(cajero.user,userRole)
+                flash.message = 'Cajero registrado'
+                redirect(controller:'cajero', action: 'list')
+            }
+        }
+    }
+
+
 
 
     def delete (){
