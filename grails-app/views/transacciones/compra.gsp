@@ -90,7 +90,7 @@
     <div class="info-venta">
                 %{--<span>hola</span>--}%
                 %{--<span>Su usuario: ${user.username}</span><br/>--}%
-        <span>Su capital: </span><output class="capital bold">${user.capital}</output> <br/>
+        <span>Dinero en mi cuenta: </span><output class="capital bold">${user.capital}</output> <br/>
         <span >Costo de transferencia: </span><output class="costoTransfer" format="\$#.##">${edu.upb.upbBolsa.VariablesSistema.findByNombre('costoTransfer').value}</output> <br/><br/>
         <span>Seleccionar una empresa: </span><g:select required="" class="empresa" name="empresas" from="${edu.upb.upbBolsa.Company.findAll().name}" onkeypress="valuecompany()" onclick="valuecompany()" noSelection="['null':'Seleccione una empresa']"></g:select> <br/>
                 %{--<span>Empresa seleccionada:  </span><span class="empresasel"></span><br/>--}%

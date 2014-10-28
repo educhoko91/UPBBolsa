@@ -75,10 +75,10 @@
     <sec:ifAllGranted roles="ROLE_CAJA">
         <li> <g:link controller="cajero" action="index">Habilitar Usuario</g:link> </li>
         <sec:ifNotLoggedIn>
-            <li><g:link controller="login" action="auth">Log-In</g:link> </li>
+            <li><g:link controller="login" action="auth">Iniciar Sesion</g:link> </li>
         </sec:ifNotLoggedIn>
         <sec:ifLoggedIn>
-            <li><g:link controller="logout" action="index">Log-Out</g:link></li>
+            <li><g:link controller="logout" action="index">Cerrar Sesion</g:link></li>
         </sec:ifLoggedIn>
     </sec:ifAllGranted>
     </div>
