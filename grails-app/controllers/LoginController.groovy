@@ -136,7 +136,8 @@ class LoginController {
 				msg = g.message(code: "springSecurity.errors.login.locked")
 			}
 			else {
-				msg = "No se pudo loguear, revise su usuario y password";
+				msg = "No pudo iniciar sesión, revise su usuario y password. " +
+                        "Si olvidó su password por favor contactese con el administrador.";
 			}
 		}
 
